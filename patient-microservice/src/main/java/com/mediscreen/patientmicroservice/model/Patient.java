@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Table(name="Patient")
+@Table(name="Patients")
 public class Patient {
 
     /**

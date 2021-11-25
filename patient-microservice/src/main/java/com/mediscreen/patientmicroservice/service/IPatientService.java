@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface IPatientService {
 
-    public List<Patient> findAll();
+    List<Patient> findAll();
+
+    Patient findPatientById(Integer id);
+
+    Patient findPatientByFirstName(String firstName);
+
 
 }

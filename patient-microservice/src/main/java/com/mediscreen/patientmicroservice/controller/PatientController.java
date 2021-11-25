@@ -1,7 +1,6 @@
 package com.mediscreen.patientmicroservice.controller;
 
 import com.mediscreen.patientmicroservice.model.Patient;
-import com.mediscreen.patientmicroservice.repository.PatientRepository;
 import com.mediscreen.patientmicroservice.service.IPatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,5 +30,13 @@ public class PatientController {
         logger.info(" ---> Launch getAllPatients");
         List<Patient> patients = patientService.findAll();
         return patients;
+    }
+
+
+    @GetMapping("/patient/id")
+    public Patient getPatientById(Model model){
+        logger.info(" ---> Launch getAllPatients");
+        List<Patient> patients = patientService.findAll();
+        return null;
     }
 }

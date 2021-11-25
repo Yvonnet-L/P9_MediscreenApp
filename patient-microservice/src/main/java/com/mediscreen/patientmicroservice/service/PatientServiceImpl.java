@@ -13,9 +13,37 @@ public class PatientServiceImpl implements IPatientService{
     @Autowired
     PatientRepository patientRepository;
 
+    /**  ----------------------------------------------------------------------------------------------------------
+     *
+     * @return
+     */
     @Override
     public List<Patient> findAll() {
         List<Patient> patients = patientRepository.findAll();
         return patients;
     }
+
+    /**  ----------------------------------------------------------------------------------------------------------
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Patient findPatientById(Integer id) {
+        Patient patient = patientRepository.getById(id);
+        return patient;
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------
+     *
+     * @param firstName
+     * @return
+     */
+    @Override
+    public Patient findPatientByFirstName(String firstName) {
+        Patient patient = patientRepository.findByFirstName(firstName);
+        return patient;
+    }
+
+
 }
