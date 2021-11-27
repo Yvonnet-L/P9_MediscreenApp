@@ -2,7 +2,6 @@ package com.mediscreen.patientmicroservice.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name="Patients")
@@ -20,17 +19,17 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name= "id_patient", nullable = false)
+    @Column(name= "id", unique = true, nullable = false)
     private int id;
 
-    @Column(name= "last_name", length = 40, nullable = false)
-    private String lastName;
+    @Column(name= "familly", length = 40, nullable = false)
+    private String famillyName;
 
-    @Column(name= "first_name", length = 40, nullable = false)
-    private String firstName;
+    @Column(name= "given", length = 40, nullable = false)
+    private String givenName;
 
-    @Column(name= "bird_of_date", nullable = false)
-    private LocalDate bod;
+    @Column(name= "dob", nullable = false)
+    private LocalDate dateOfBirth;
 
     @Column(name="sex", columnDefinition = "enum('F','M')")
     private String sex;
@@ -52,28 +51,28 @@ public class Patient {
         this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFamillyName() {
+        return famillyName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFamillyName(String famillyName) {
+        this.famillyName = famillyName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getGivenName() {
+        return givenName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
     }
 
-    public LocalDate getBod() {
-        return bod;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBod(LocalDate bod) {
-        this.bod = bod;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getSex() {

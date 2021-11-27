@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientServiceImpl implements IPatientService{
@@ -36,12 +37,18 @@ public class PatientServiceImpl implements IPatientService{
 
     /** ----------------------------------------------------------------------------------------------------------
      *
-     * @param firstName
+     * @param famillyName
      * @return
      */
     @Override
-    public Patient findPatientByFirstName(String firstName) {
-        Patient patient = patientRepository.findByFirstName(firstName);
+    public Patient findPatientByFamillyName(String famillyName) {
+        Patient patient = patientRepository.findByFamillyName(famillyName);
+        return patient;
+    }
+
+    @Override
+    public Optional<Patient> findById(Integer id) {
+        Optional<Patient> patient = patientRepository.findById(id);
         return patient;
     }
 

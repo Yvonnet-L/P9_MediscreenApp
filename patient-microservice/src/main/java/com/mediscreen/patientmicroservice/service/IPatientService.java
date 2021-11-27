@@ -3,6 +3,7 @@ package com.mediscreen.patientmicroservice.service;
 import com.mediscreen.patientmicroservice.model.Patient;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IPatientService {
 
@@ -10,7 +11,7 @@ public interface IPatientService {
 
     Patient findPatientById(Integer id);
 
-    Patient findPatientByFirstName(String firstName);
+    Patient findPatientByFamillyName(String famillyName);
 
-
+    Optional<Patient> findById(Integer id);
 }
