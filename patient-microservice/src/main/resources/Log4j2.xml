@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="INFO">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%style{%d{HH:mm:ss }}{yellow}  %style{[%t]}{cyan}
+      %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green}
+     | %style{%-60c}{white} | %style{%m}{magenta} (%F:%L)%n" />
+        </Console>
+
+        <RollingFile name="rollingFile" fileName="logs/logs.txt"
+                     filePattern="logs/logs-%d{yyyy-MM-dd}-%i.txt">
+            <PatternLayout pattern="%d - [%t] %-10p | %-60c | %m (%F:%L)%n" />
+
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="5MB"/>
+            </Policies>
+        </RollingFile>
+
+    </appenders>
+    <loggers>
+        <root level="INFO">
+            <appender-ref ref="Console"/>
+            <AppenderRef ref="rollingFile" />
+        </root>
+    </loggers>
+</configuration>

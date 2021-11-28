@@ -47,6 +47,12 @@ public class PatientServiceImpl implements IPatientService{
     }
 
     @Override
+    public List<Patient> findByFamillyNameStartingWith(String famillyName) {
+        List<Patient> patients = patientRepository.findByFamillyNameStartingWith(famillyName);
+        return patients;
+    }
+
+    @Override
     public Optional<Patient> findById(Integer id) {
         Optional<Patient> patient = patientRepository.findById(id);
         return patient;

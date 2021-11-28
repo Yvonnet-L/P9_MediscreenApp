@@ -13,5 +13,7 @@ public interface IPatientService {
 
     Patient findPatientByFamillyName(String famillyName);
 
+    List<Patient> findByFamillyNameStartingWith(String famillyName);
+
     Optional<Patient> findById(Integer id);
 }

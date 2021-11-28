@@ -33,15 +33,26 @@ public class PatientController {
         return "index: Welcome Here !!!!";
     }
 
+    /** ------------------------------------------------------------------------------------------------------------
+     * retrieves and displays the list of all patients
+     *
+     * @return List<PatientDTO>
+     */
+    @ApiOperation(value="retrieve the list of all patients")
     @GetMapping("/patients")
-    public List<Patient> getAllPatients(Model model){
+    public List<Patient> getAllPatients(){
         logger.info(" ---> Launch getAllPatients");
         List<Patient> patients = patientService.findAll();
         return patients;
     }
 
+    /** ------------------------------------------------------------------------------------------------------------
+     * return a patient according to his id
+     * @param id
+     * @return PatientDTO
+     */
     @ApiOperation(value="pick up a patient according to his id")
-    @GetMapping(value="/patient/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/patients/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Optional<Patient> getPatientById(@PathVariable(name = "id") Integer id){
         logger.info(" ---> Launch getPatientById , /patient/{id}");
@@ -49,7 +60,12 @@ public class PatientController {
         return  patient;
     }
 
-
+    /** ------------------------------------------------------------------------------------------------------------
+     *
+     * @param famillyName
+     * @return PatientDTO
+     */
+     @ApiOperation(value="retrieve patient with his famillyName")
      @GetMapping(value="/patient/familly/{famillyName}", produces = MediaType.APPLICATION_JSON_VALUE)
      @ResponseStatus(HttpStatus.OK)
      public Patient getPatientByFamillyName(@PathVariable(name = "famillyName") String famillyName){
@@ -58,4 +74,17 @@ public class PatientController {
         return  patient;
      }
 
+    /**  ------------------------------------------------------------------------------------------------------------
+     *
+     * @param famillyName
+     * @return
+     */
+    @ApiOperation(value="retrieve List of patients with his famillyName starting by %")
+    @GetMapping(value="/patients/familly/{famillyName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Patient> getPatientsStartingWith(@PathVariable(name = "famillyName") String famillyName){
+        logger.info(" ---> Launch getPatientByFamillyName , /patient/{famillyName}");
+        List<Patient> patients = patientService.findByFamillyNameStartingWith(famillyName);
+        return  patients;
+    }
 }
