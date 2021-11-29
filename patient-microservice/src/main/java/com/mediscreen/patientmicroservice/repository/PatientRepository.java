@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
-    Patient findByFamillyName(String famillyName);
+    Patient findByFamilyName(String familyName);
 
-    List<Patient> findByFamillyNameStartingWith(String famillyName);
+    List<Patient> findByFamilyNameStartingWith(String familyName);
 }

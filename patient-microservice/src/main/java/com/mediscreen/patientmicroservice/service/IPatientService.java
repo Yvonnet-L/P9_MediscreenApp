@@ -1,5 +1,6 @@
 package com.mediscreen.patientmicroservice.service;
 
+import com.mediscreen.patientmicroservice.dto.PatientDTO;
 import com.mediscreen.patientmicroservice.model.Patient;
 
 import java.util.List;
@@ -7,13 +8,13 @@ import java.util.Optional;
 
 public interface IPatientService {
 
-    List<Patient> findAll();
+    List<PatientDTO> findAll();
 
-    Patient findPatientById(Integer id);
+    PatientDTO findPatientById(Integer id);
 
-    Patient findPatientByFamillyName(String famillyName);
+    PatientDTO findPatientByFamilyName(String familyName);
 
-    List<Patient> findByFamillyNameStartingWith(String famillyName);
+    List<PatientDTO> findByFamilyNameStartingWith(String familyName);
 
-    Optional<Patient> findById(Integer id);
+    PatientDTO findById(Integer id);
 }

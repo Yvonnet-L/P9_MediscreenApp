@@ -22,8 +22,8 @@ public class Patient {
     @Column(name= "id", unique = true, nullable = false)
     private int id;
 
-    @Column(name= "familly", length = 40, nullable = false)
-    private String famillyName;
+    @Column(name= "family", length = 40, nullable = false)
+    private String familyName;
 
     @Column(name= "given", length = 40, nullable = false)
     private String givenName;
@@ -51,12 +51,12 @@ public class Patient {
         this.id = id;
     }
 
-    public String getFamillyName() {
-        return famillyName;
+    public String getFamilyName() {
+        return familyName;
     }
 
-    public void setFamillyName(String famillyName) {
-        this.famillyName = famillyName;
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
     }
 
     public String getGivenName() {
