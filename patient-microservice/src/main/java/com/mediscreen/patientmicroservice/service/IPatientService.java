@@ -8,11 +8,13 @@ public interface IPatientService {
 
     List<PatientDTO> findAll();
 
-    PatientDTO findPatientById(Integer id);
-
-    PatientDTO findPatientByFamilyName(String familyName);
-
     List<PatientDTO> findByFamilyNameStartingWith(String familyName);
 
     PatientDTO findById(Integer id);
+
+    PatientDTO addPatient(PatientDTO patientDTO);
+
+    PatientDTO updatePatient(Integer id, PatientDTO patientDTO);
+
+    void deletePatient(Integer id);
 }

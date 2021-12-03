@@ -22,7 +22,7 @@ public class DtoBuilder {
      */
     public PatientDTO buildPatientDTO(final Patient patient){
         logger.info(" ----> Launch buildPatientDTO");
-        return new PatientDTO(patient.getId(),patient.getFamilyName(),patient.getGivenName(), patient.getDateOfBirth(),
+        return new PatientDTO(patient.getIdPatient(),patient.getFamilyName(),patient.getGivenName(), patient.getDateOfBirth(),
                                patient.getSex(), patient.getAddress(), patient.getPhone());
     }
 

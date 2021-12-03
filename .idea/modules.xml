@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/P9_MediscreenApp.iml" filepath="$PROJECT_DIR$/.idea/P9_MediscreenApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/clientui/clientui.iml" filepath="$PROJECT_DIR$/clientui/clientui.iml" />
       <module fileurl="file://$PROJECT_DIR$/patient-microservice/patient-microservice.iml" filepath="$PROJECT_DIR$/patient-microservice/patient-microservice.iml" />
     </modules>
   </component>
