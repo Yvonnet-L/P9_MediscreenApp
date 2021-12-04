@@ -16,5 +16,5 @@ public interface IPatientService {
 
     PatientDTO updatePatient(Integer id, PatientDTO patientDTO);
 
-    void deletePatient(Integer id);
+    String deletePatient(Integer id);
 }

@@ -1,9 +1,7 @@
 package com.mediscreen.patientmicroservice.service;
 
-import com.mediscreen.patientmicroservice.controller.PatientController;
 import com.mediscreen.patientmicroservice.dto.PatientDTO;
 import com.mediscreen.patientmicroservice.exception.DataAlreadyExistException;
-import com.mediscreen.patientmicroservice.exception.DataNotConformException;
 import com.mediscreen.patientmicroservice.exception.DataNotFoundException;
 import com.mediscreen.patientmicroservice.model.Patient;
 import com.mediscreen.patientmicroservice.repository.PatientRepository;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PatientServiceImpl implements IPatientService{
@@ -67,10 +64,7 @@ public class PatientServiceImpl implements IPatientService{
     @Override
     public List<PatientDTO> findByFamilyNameStartingWith(String familyName) {
         List<Patient> patients = patientRepository.findByFamilyNameStartingWith(familyName);
-        List<PatientDTO> patientDTOS = new ArrayList<>();
-        for (Patient p: patients) {
-            patientDTOS.add(dtoBuilder.buildPatientDTO(p));
-        }
+        List<PatientDTO> patientDTOS = listPatientToListDTO(patients);
             return patientDTOS;
     }
 
@@ -110,14 +104,25 @@ public class PatientServiceImpl implements IPatientService{
     }
 
     @Override
-    public void deletePatient(Integer id) {
+    public String deletePatient(Integer id) {
         Patient patient = patientRepository.findByIdPatient(id);
         if (patient == null) {
             throw new DataNotFoundException("Can not find the entity patient with id = " + id );
         }
         patientRepository.delete(patient);
+        return "ok";
     }
 
-
-
+    /**
+     * Method utility to build a List<PatientDTO> from a List<Patient> using dtoBuilder
+     * @param patients
+     * @return
+     */
+    public List<PatientDTO> listPatientToListDTO(List<Patient> patients) {
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+        for (Patient p: patients) {
+            patientDTOS.add(dtoBuilder.buildPatientDTO(p));
+        }
+        return patientDTOS;
+    }
 }

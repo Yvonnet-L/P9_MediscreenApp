@@ -28,4 +28,14 @@ public class PatientDTO {
     private String phone;
 
     //----------Constructor-----------------------------------------------------------------------------------
+
+
+    public PatientDTO(String familyName, String givenName, LocalDate dateOfBirth, String sex, String address, String phone) {
+        this.familyName = familyName;
+        this.givenName = givenName;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.address = address;
+        this.phone = phone;
+    }
 }
