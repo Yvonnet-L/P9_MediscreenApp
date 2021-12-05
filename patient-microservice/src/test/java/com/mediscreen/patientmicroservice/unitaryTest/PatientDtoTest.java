@@ -29,7 +29,6 @@ public class PatientDtoTest {
     @Test
     @DisplayName("PatientDTO constraints test with params valid")
     public void patientDtoAllParamsGoodTest() {
-        // String familyName, String givenName, LocalDate dateOfBirth, String sex, String address, String phone)
         LocalDate date = LocalDate.ofEpochDay(1966-12-31);
         PatientDTO patientDTO = new PatientDTO( "TestNone", "Test", date,
                                                 "F", "1 Brookside St", "100-222-3333");
