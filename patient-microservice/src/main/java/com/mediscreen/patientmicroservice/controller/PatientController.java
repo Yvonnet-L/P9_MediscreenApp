@@ -105,7 +105,7 @@ public class PatientController {
     @DeleteMapping(value="/patient/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePatient(@PathVariable("id") Integer id) {
-        logger.info(" ---> Launch addPatient , /patients/update/{id} with patient id : " + id);
+        logger.info(" ---> Launch deletePatient , /patients/delete/{id} with patient id : " + id);
          patientService.deletePatient(id);
     }
 

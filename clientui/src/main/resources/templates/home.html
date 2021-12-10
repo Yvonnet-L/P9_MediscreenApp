@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ClientUI</title>
+
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-9 text-left" >
+            <img src="images/logo.jpg" />
+        </div>
+        <div class="col-3 text-right">
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" size="20" aria-label="Search">
+                <button type="submit" class="btn btn-outline-info my-2 my-sm-2">
+                    <span class="glyphicon glyphicon glyphicon-search"></span>
+                </button>
+                <a class="text-info font-weight-bold"> Question?</a>&nbsp;&nbsp;
+                <a href="#" class="text-info font-weight-bold">Contact us!</a>
+            </form>
+        </div>
+    </div>
+</div>
+</br>
+<div class="container">
+
+        <nav class="navbar navbar-dark bg-cian text-white" style="background-color: #2e99b6;">
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="nav-link text-white"  href="/patient/list?stringSearch=">Patients</a>
+                </div>
+                <div class="col-md-6" >
+                     <a class="nav-link text-white"  href="#">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="row">
+            <div class="col-md-12" >
+                <img src="images/logoFamille.jpg" />
+            </div>
+        </div>
+</div>
+<div class="container" style="margin-top: 50px;">
+
+           <center> <h1> Welcome to MEDISCREEN </h1></center>
+
+</div>
+</body>
+</html>

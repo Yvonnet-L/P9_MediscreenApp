@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>ClientUI Patient Add</title>
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <div class="container" >
+        <div class="row">
+            <div class="col-9 text-left" >
+                <img src="http://localhost:8080/images/logo.jpg" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container" >
+        <nav class="navbar navbar-dark bg-cian text-white" style="background-color: #2e99b6;">
+            <div class="row">
+                <div class="col-md-4 align-right">
+                    <a class="nav-link text-white"  href="/">Home</a>
+                </div>
+                <div class="col-md-4">
+                    <a class="nav-link text-white"  href="#">Notes</a>
+                </div>
+                <div class="col-md-4">
+                    <a class="nav-link text-white"  href="/patient/list?stringSearch=">List</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container" style="margin-top: 20px; margin-right: 20px; width: 60%">
+
+        <div class="row">
+            <div class="form-group">
+                <h2>Add New Patient</h2>
+                <br>
+                <div th:if="${message}" th:utext="${message}"
+                     style=" color:blue; font-style:italic ; font-weight: bold; font-size:1.4em"> </div>
+                </div>
+        </div>
+        <div class="row">
+            <form action="#" th:action="@{/patient/validate}" th:object="${patientDTO}" method="post" class="form-horizontal" style="width: 100%">
+                <!-- Family Name  -->
+                <div class="form-group">
+                    <label for="familyName" class="col-sm-2 control-label">Family Name</label>
+                    <div class="col-md-10">
+                        <input type="text" th:field="*{familyName}" id="familyName" placeholder="FamillyName" class="col-4">
+                        <p class="text-danger" th:if="${#fields.hasErrors('familyName')}" th:errors="*{familyName}"></p>
+                    </div>
+                </div>
+                <!-- Given Name  -->
+                <div class="form-group">
+                    <label for="givenName" class="col-sm-2 control-label">Given Name</label>
+                    <div class="col-md-10">
+                        <input type="text" th:field="*{givenName}" id="givenName" placeholder="Type" class="col-4">
+                        <p class="text-danger" th:if="${#fields.hasErrors('givenName')}" th:errors="*{givenName}"></p>
+                    </div>
+                </div>
+                <!-- Date Of Birth  -->
+                <div class="form-group">
+                    <label for="dateOfBirth" class="col-sm-2 control-label">Date Of Birth</label>
+                    <div class="col-md-10">
+                        <input type="date"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required
+                               th:field="*{dateOfBirth}" id="dateOfBirth" placeholder="yyyy-MM-dd"  class="col-4">
+                        <p class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></p>
+                    </div>
+                </div>
+                <!-- sex  -->
+                <div class="form-group">
+                    <label for="sex" class="col-sm-2 control-label">Sex</label>
+                    <div class="col-md-10">
+                        <input type="radio" checked th:field="*{sex}" id="sex" name="type" value="F">
+                        <label for="sex">Feminine</label>
+
+                        <input type="radio" th:field="*{sex}" id="sex" name="type" value="M">
+                        <label for="sex">Male</label>
+                        <p class="text-danger" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></p>
+                    </div>
+                </div>
+                <!-- address  -->
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">Address</label>
+                    <div class="col-md-10">
+                        <input type="text" th:field="*{address}" id="address" placeholder="21 Jump Street"  class="col-4">
+                        <p class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+                    </div>
+                </div>
+                <!-- phone  -->
+                <div class="form-group">
+                    <label for="phone" class="col-sm-2 control-label">Phone</label>
+                    <div class="col-md-10">
+                        <input type="text" th:field="*{phone}" id="phone" placeholder="100-222-3333"  class="col-4">
+                        <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+                    </div>
+                </div>
+                <br>
+                <!-- Buttons validation / cancel  -->
+                <div class="form-group">
+                    <label for="phone" class="col-sm-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input class="btn btn-primary btn-sm" type="submit" value="Add Patient">
+                        <a class="btn btn-danger btn-sm" href="/patient/list?stringSearch=">Cancel</a>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>
