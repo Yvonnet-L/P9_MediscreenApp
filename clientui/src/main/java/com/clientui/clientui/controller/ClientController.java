@@ -16,6 +16,10 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Display controller and customer information management Patient
+ */
+
 @Controller
 public class ClientController {
 
@@ -28,13 +32,22 @@ public class ClientController {
 
     private static Logger logger = LogManager.getLogger(ClientController.class);
 
-
+    /**
+     *  Home Page of Mediscreen
+     * @return home.html
+     */
     @GetMapping("/")
     public String home(){
         logger.info(" ---> Launch home");
         return "home";
     }
 
+    /**
+     * Patient list overview page based on last name search, returns all clients if no search data is entered
+     * @param model
+     * @param stringSearch
+     * @return list.html in folder patient
+     */
     //---------Get----- /patient/list ---------------------------------------------------------------------------
     @GetMapping("/patient/list")
     public String getPatients(Model model, @Param("stringSearch")  String stringSearch){
@@ -51,6 +64,11 @@ public class ClientController {
         return "patient/list";
     }
 
+    /**
+     * launches the deletion of the patient by his id and refreshes the page
+     * @param id
+     * @return list.html in folder patient
+     */
     //---------Get----- /patient/delete/id  ---------------------------------------------------------------------------
     @GetMapping("/patient/delete/{id}")
     public String deletePatient(@PathVariable("id") Integer id){
@@ -59,7 +77,14 @@ public class ClientController {
         logger.info( "  --> ** patient Deleted ** id: " + id);
         return   "redirect:/patient/list?stringSearch=";
     }
-    //---------Get----- /patient/update/{id}
+
+    /**
+     * Launches the patient's update page by his id
+     * @param id
+     * @param model
+     * @return update.html in folder patient
+     */
+    //---------Get----- /patient/update/{id} -------------------------------------------------------------------------
     @GetMapping("/patient/update/{id}")
     public String getUpdatePatient(@PathVariable("id") Integer id, Model model){
         logger.info(" ----> Launch Get /patient/update/{id} with id=" + id);
@@ -67,6 +92,18 @@ public class ClientController {
         model.addAttribute("patientDTO", patientDTO);
         return "patient/update";
     }
+
+    /**
+     * Starts updating patient data with data consistency check using the PatientDTO
+     * javax.validation.constraints.Pattern.
+     * Errors are reported on the pages if there are any, otherwise the update is made
+     * Then return to the page with a success or failure message if a problem has arisen
+     * @param id
+     * @param patientDTO
+     * @param result
+     * @param model
+     * @return update.html in folder patient with msg
+     */
     //---------Put----- /patient/update/{id} --------------------------------------------------------------------
     @PostMapping("/patient/update/{id}")
     public String updatePatient(@PathVariable("id") Integer id, @Valid PatientDTO patientDTO,
@@ -77,18 +114,36 @@ public class ClientController {
             model.addAttribute(id);
             return "patient/update";
         }
-        String msg =  patientService.udatePatient(patientDTO, id);
+        String msg =  patientService.updatePatient(patientDTO, id);
         model.addAttribute("message", msg);
         logger.info( "  --> **  Patient update success ** id: " + id);
         //return   "redirect:/patient/list?stringSearch=";
         return "patient/update";
     }
+
+    /**
+     * Launches the page for creating a new patient
+     * @param patientDTO
+     * @return add.htlm in folder patient
+     */
     //---------Get----- /patient/add  ---------------------------------------------------------------------------
     @GetMapping("/patient/add")
     public String getAddPatient(PatientDTO patientDTO){
         logger.info(" ----> Launch /patient/add getAddPatient");
         return "patient/add";
     }
+
+    /**
+     *   Starts updating patient data with data consistency check using the PatientDTO
+     *   javax.validation.constraints.Pattern.
+     *   Errors are reported on the pages if there are any, otherwise the update is made
+     *   Then return to the page with a success or failure message if a problem has arisen
+     * @param patientDTO
+     * @param result
+     * @param model
+     * @param message
+     * @return add.html in folder patient
+     */
     //---------Post-----/patient/validate---------------------------------------------------------------------------------
     @PostMapping("/patient/validate")
     public String validate(@Valid PatientDTO patientDTO, BindingResult result, Model model,

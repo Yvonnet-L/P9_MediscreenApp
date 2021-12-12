@@ -10,6 +10,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+/**
+ * Data Transfer Object of the Patient class with the input constraints,
+ * used for validation of incoming data
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

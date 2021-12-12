@@ -9,6 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**
+ * Data Transfer Object of the Patient class with the input constraints,
+ * used for validation of incoming data
+ */
 @Getter
 @Setter
 @AllArgsConstructor

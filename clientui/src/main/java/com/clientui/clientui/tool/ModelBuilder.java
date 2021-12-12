@@ -18,16 +18,16 @@ public class ModelBuilder {
 
     private static Logger logger = LogManager.getLogger(ModelBuilder.class);
 
-    /**
+    /** --------------  Patient -------------------------------------------------------------------------------------
      *
      * @param patientDTO
      * @return Patient
      */
     public Patient buildPatient(final PatientDTO patientDTO) {
         //logger.info(" ----> Launch buildPatient()");
-
-        return new Patient(patientDTO.getId(),patientDTO.getFamilyName(),patientDTO.getGivenName(), LocalDate.parse(patientDTO.getDateOfBirth()),
-                patientDTO.getSex(), patientDTO.getAddress(), patientDTO.getPhone());
+        return new Patient(patientDTO.getId(),patientDTO.getFamilyName(),patientDTO.getGivenName(),
+                             LocalDate.parse(patientDTO.getDateOfBirth()), patientDTO.getSex(),
+                                patientDTO.getAddress(), patientDTO.getPhone());
     }
 }
 

@@ -4,6 +4,9 @@ import com.clientui.clientui.dto.PatientDTO;
 
 import java.util.List;
 
+/**
+ *  Patient Service Interface
+ */
 public interface IPatientService {
 
     List<PatientDTO> getAllPatients();
@@ -16,5 +19,5 @@ public interface IPatientService {
 
     String addPatient(PatientDTO patientDTO);
 
-    String udatePatient(PatientDTO patientDTO, Integer id);
+    String updatePatient(PatientDTO patientDTO, Integer id);
 }

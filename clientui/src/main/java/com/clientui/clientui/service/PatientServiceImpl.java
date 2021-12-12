@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Patient Service implementation
+ */
+
 @Service
 public class PatientServiceImpl implements IPatientService {
 
@@ -27,6 +31,10 @@ public class PatientServiceImpl implements IPatientService {
 
     private static Logger logger = LogManager.getLogger(PatientServiceImpl.class);
 
+    /** -------------------------------------------------------------------------------------------------------------
+     *
+     * @return List<PatientDTO>
+     */
     @Override
     public List<PatientDTO> getAllPatients() {
         logger.info(" ----> Launch getAllPatients()");
@@ -38,6 +46,11 @@ public class PatientServiceImpl implements IPatientService {
         return patientDTOS;
     }
 
+    /** -------------------------------------------------------------------------------------------------------------
+     *
+     * @param stringSearch
+     * @return  patientDTOS List<PatientDTO>
+     */
     @Override
     public List<PatientDTO> getPatientStartingFamilyNameWith(String stringSearch) {
         logger.info(" ----> Launch getPatientStartingFamilyNameWith()");
@@ -49,6 +62,11 @@ public class PatientServiceImpl implements IPatientService {
         return patientDTOS;
     }
 
+    /** -------------------------------------------------------------------------------------------------------------
+     *
+     * @param id
+     * @return PatientDTO
+     */
     @Override
     public PatientDTO getById(Integer id) {
         logger.info(" ----> Launch getById(Integer id) with id = " + id);
@@ -56,6 +74,10 @@ public class PatientServiceImpl implements IPatientService {
         return dtoBuilder.buildPatientDTO(patient);
     }
 
+    /** -------------------------------------------------------------------------------------------------------------
+     *
+     * @param id
+     */
     @Override
     public void deletePatientById(Integer id) {
         logger.info(" ----> Launch deletePatientById(Integer id) with id = " + id);
@@ -67,6 +89,11 @@ public class PatientServiceImpl implements IPatientService {
         }
     }
 
+    /** -------------------------------------------------------------------------------------------------------------
+     *
+     * @param patientDTO
+     * @return String message résultat opération
+     */
     @Override
     public String addPatient(PatientDTO patientDTO) {
         logger.info(" ----> Launch addPatient");
@@ -81,8 +108,14 @@ public class PatientServiceImpl implements IPatientService {
         }
     }
 
+    /** -------------------------------------------------------------------------------------------------------------
+     *
+     * @param patientDTO
+     * @param id
+     * @return String message résultat opération
+     */
     @Override
-    public String udatePatient(PatientDTO patientDTO, Integer id) {
+    public String updatePatient(PatientDTO patientDTO, Integer id) {
         try {
             Patient patientAdd = patientMicroserviceProxy.updatePatient(id, modelBuilder.buildPatient(patientDTO));
             logger.info(" ---->  Patient Update success with id: " + patientAdd.getId());

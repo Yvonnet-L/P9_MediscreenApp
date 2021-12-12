@@ -8,6 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ *  Class allowing the link with the Patient table of the database
+ */
+
 @Entity
 @Getter
 @Setter
@@ -15,16 +19,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name="patients")
 public class Patient {
-
-    /**
-     * Les informations personnelles des patients sont :
-     * - prénom
-     * - nom
-     * - date de naissance
-     * - genre
-     * - adresse postale
-     * - numéro de téléphone
-     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

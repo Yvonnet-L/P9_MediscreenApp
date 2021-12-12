@@ -6,7 +6,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-
+/**
+ *  Model to collect patient-microservice data
+ */
 @Getter
 @Setter
 @AllArgsConstructor

@@ -4,6 +4,10 @@ import com.mediscreen.patientmicroservice.dto.PatientDTO;
 
 import java.util.List;
 
+/**
+ *  Patient Service Interface
+ */
+
 public interface IPatientService {
 
     List<PatientDTO> findAll();
@@ -16,5 +20,5 @@ public interface IPatientService {
 
     PatientDTO updatePatient(Integer id, PatientDTO patientDTO);
 
-    String deletePatient(Integer id);
+    void deletePatient(Integer id);
 }
