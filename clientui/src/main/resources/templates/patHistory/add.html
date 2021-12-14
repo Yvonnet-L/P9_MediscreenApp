@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>ClientUI Patient Add</title>
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container" >
+    <div class="row">
+        <div class="col-9 text-left" >
+            <img src="http://localhost:8080/images/logo.jpg" />
+        </div>
+    </div>
+</div>
+
+<div class="container" >
+    <nav class="navbar navbar-dark bg-cian text-white" style="background-color: #2e99b6;">
+        <div class="row">
+            <div class="col-md-4 align-right">
+                <a class="nav-link text-white"  href="/">Home</a>
+            </div>
+            <div class="col-md-4">
+                <a class="nav-link text-white"  href="#">Notes</a>
+            </div>
+            <div class="col-md-4">
+                <a class="nav-link text-white"  href="/patient/list?stringSearch=">List</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container" style="margin-top: 20px; margin-right: 20px; width: 60%">
+
+    <div class="row">
+        <div class="form-group">
+            <h2>Add New Note</h2>
+            <br>
+            <div th:if="${patientId}" th:utext="${patientId}"
+                 style=" color:blue; font-style:italic ; font-weight: bold; font-size:1.4em"> </div>
+        </div>
+    </div>
+    <div class="row">
+        <form action="Post" th:action="@{/patHistory/validate}" th:object="${patientHistoryDTO}" method="post" class="form-horizontal" style="width: 100%">
+            <!--patientID  -->
+                   <div class="form-group">
+                       <label for="patientId" class="col-sm-2 control-label">PatientId</label>
+                       <div class="col-md-10">
+                           <input type="hidden" th:field="*{patientId}" id="patientId" value="1" class="col-4">
+                          </div>
+                      </div>
+            <!-- date  -->
+            <div class="form-group">
+                <label for="date" class="col-sm-2 control-label">Date</label>
+                <div class="col-md-10">
+                    <input type="date"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required
+                           th:field="*{date}" id="date" placeholder="yyyy-MM-dd"  class="col-4">
+                </div>
+            </div>
+            <!-- note  -->
+            <div class="form-group">
+                <label for="notes" class="col-sm-2 control-label">Notes</label>
+                <div class="col-md-10">
+                    <textarea type="text" style="height:200px;" th:field="*{notes}"
+                              id="notes" placeholder="notes"  class="col-4">
+                        </textarea>
+
+                </div>
+            </div>
+
+            <br>
+            <!-- Buttons validation / cancel  -->
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input class="btn btn-primary btn-sm" type="submit" value="Add Notes">
+                    <a class="btn btn-danger btn-sm"
+                       href="@{/patHistory/{id}(id=${noteDTO.patientId})}">Cancel</a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
