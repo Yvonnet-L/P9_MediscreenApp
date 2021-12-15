@@ -82,6 +82,7 @@ public class PatientHistoryController {
      */
     @ApiOperation(value="Delete a patientHistory in the base using his id")
     @DeleteMapping("/patHistory/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePatientHistory(@PathVariable(name ="id") String id ) {
         logger.info(" ---> Launch deletePatientHistory() with id = "+ id );
         patientHistoryService.deletePatientHistory(id);

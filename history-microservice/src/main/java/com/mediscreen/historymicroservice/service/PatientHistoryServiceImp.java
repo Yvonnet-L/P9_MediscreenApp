@@ -1,7 +1,6 @@
 package com.mediscreen.historymicroservice.service;
 
 import com.mediscreen.historymicroservice.dto.PatientHistoryDTO;
-import com.mediscreen.historymicroservice.exception.DataNotConformException;
 import com.mediscreen.historymicroservice.exception.DataNotFoundException;
 import com.mediscreen.historymicroservice.model.PatientHistory;
 import com.mediscreen.historymicroservice.repository.PatientHistoryRepository;
@@ -77,13 +76,8 @@ public class PatientHistoryServiceImp implements IPatientHistoryService {
     @Override
     public PatientHistoryDTO addPatientHistory(PatientHistoryDTO patientHistoryDTO) {
         logger.info(" ---> Launch addPatientHistory");
-        PatientHistory patientHistoryAdd = new PatientHistory();
-        if (!patientHistoryDTO.equals(null)){
-            patientHistoryAdd = patientHistoryRepository.save(modelBuilder.buildPatientHistory(patientHistoryDTO));
-        } else {
-            throw new DataNotConformException("PatientHistory patient cannot be Null ");
-        }
-        return dtoBuilder.buildPatientHistoryDTO(patientHistoryAdd);
+          PatientHistory  phAdd = patientHistoryRepository.save(modelBuilder.buildPatientHistory(patientHistoryDTO));
+        return dtoBuilder.buildPatientHistoryDTO(phAdd);
     }
 
     /** ------------------------------------------------------------------------------------------------------------

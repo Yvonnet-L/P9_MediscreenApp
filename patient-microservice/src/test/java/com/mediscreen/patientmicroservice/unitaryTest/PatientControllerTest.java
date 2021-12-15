@@ -85,7 +85,7 @@ public class PatientControllerTest {
     }
     //  ------- Post ---- addPatient ------------------------------------------------------------------------------
     @Test
-    @DisplayName("addPatient Test response 200 on ")
+    @DisplayName("addPatient Test response 201 on ")
     public void addPatientOkTest() throws Exception {
         Mockito.when(patientService.addPatient(any(PatientDTO.class))).thenReturn(patient1DTO);
         mockMvc.perform(post("/patient/add")
@@ -107,10 +107,9 @@ public class PatientControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    //
     //  ------- Put ---- updatePatient ------------------------------------------------------------------------------
     @Test
-    @DisplayName("addPatient Test response 200 on ")
+    @DisplayName("addPatient Test response 200  ")
     public void UpdatePatientTest() throws Exception {
         Mockito.when(patientService.updatePatient(any(Integer.class), any(PatientDTO.class))).thenReturn(patient1DTO);
         mockMvc.perform(put("/patient/update/1")
@@ -121,7 +120,7 @@ public class PatientControllerTest {
     }
 
     @Test
-    @DisplayName("addPatient Test with bad Params response 200 on ")
+    @DisplayName("addPatient Test with bad Params response 400  ")
     public void UpdatePatientBadParamsTest() throws Exception {
         PatientDTO patientNull = null;
         mockMvc.perform(put("/patient/update/1")

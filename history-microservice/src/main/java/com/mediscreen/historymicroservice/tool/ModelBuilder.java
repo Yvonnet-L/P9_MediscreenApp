@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModelBuilder {
 
-   // private static Logger logger = LogManager.getLogger(ModelBuilder.class);
+   //private static Logger logger = LogManager.getLogger(ModelBuilder.class);
 
     /**
      * @param patientHistoryDTO

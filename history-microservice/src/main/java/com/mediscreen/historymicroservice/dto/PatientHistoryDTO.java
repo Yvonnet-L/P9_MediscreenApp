@@ -22,7 +22,7 @@ import java.time.LocalDate;
 public class PatientHistoryDTO {
 
     private String id;
-    @NotBlank(message = "patientId is mandatory")
+    @NotNull(message = "patientId is mandatory")
     private Integer patientId;
     @NotNull(message = "Date is mandatory")
     private LocalDate date;
