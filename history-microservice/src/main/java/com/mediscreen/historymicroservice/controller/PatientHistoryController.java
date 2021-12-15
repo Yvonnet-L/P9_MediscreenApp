@@ -49,11 +49,11 @@ public class PatientHistoryController {
     }
 
     /** ------- Post ---  addPatientHistory -------------------------------------------------------------------------
-     *  Adds a history of a patient's note
+     *  Adds a history of a patient's note in the base using params
      * @param patientHistoryDTO
      * @return patientHistoryDTOAdd PatientHistoryDTO
      */
-    @ApiOperation(value="Adds a history of a patient's note")
+    @ApiOperation(value="Adds a history of a patient's note in the base using params")
     @PostMapping("/patHistory/add")
     @ResponseStatus(HttpStatus.CREATED)
     public PatientHistoryDTO addPatientHistory(@Valid @RequestBody PatientHistoryDTO patientHistoryDTO){
@@ -62,13 +62,25 @@ public class PatientHistoryController {
         return patientHistoryDTOAdd;
     }
 
-    @PutMapping("/patHistory/put")
-    public PatientHistoryDTO putPatientHistory(@PathVariable("id") Integer id,@Valid @RequestBody PatientHistoryDTO patientHistoryDTO){
+    /** ------- Put ---  updatePatientHistory -------------------------------------------------------------------------
+     * Updates a patient history in the base using his id
+     * @param id
+     * @param patientHistoryDTO
+     * @return
+     */
+    @ApiOperation(value="Update a patientHistory in the base using his id")
+    @PutMapping("/patHistory/update/{id}")
+    public PatientHistoryDTO updatePatientHistory(@PathVariable("id") String id,@Valid @RequestBody PatientHistoryDTO patientHistoryDTO){
         logger.info(" ---> Launch putPatientHistory()");
         PatientHistoryDTO patientHistoryDTOPut = patientHistoryService.updatePatientHistory(id,patientHistoryDTO);
         return patientHistoryDTOPut;
     }
 
+    /** ------- Delete ---  deletePatientHistory -------------------------------------------------------------------------
+     * Delete a patientHistory in the base using his id
+     * @param id
+     */
+    @ApiOperation(value="Delete a patientHistory in the base using his id")
     @DeleteMapping("/patHistory/delete/{id}")
     public void deletePatientHistory(@PathVariable(name ="id") String id ) {
         logger.info(" ---> Launch deletePatientHistory() with id = "+ id );

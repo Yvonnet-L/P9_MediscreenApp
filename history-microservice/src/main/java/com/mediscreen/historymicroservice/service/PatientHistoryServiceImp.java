@@ -38,18 +38,14 @@ public class PatientHistoryServiceImp implements IPatientHistoryService {
     public List<PatientHistoryDTO> findAll() {
         logger.info(" ---> Launch findAll");
         List<PatientHistory> patientHistories = patientHistoryRepository.findAll();
-        /**
-        List<PatientHistoryDTO> patientHistoryDTOS = new ArrayList<>();
-        for (PatientHistory patientHistory: patientHistories) {
-            patientHistoryDTOS.add(dtoBuilder.buildPatientHistoryDTO(patientHistory));
-        } */
         return listPatientHistoryToListDTO(patientHistories);
     }
 
     /** ------------------------------------------------------------------------------------------------------------
      *
+     * Method who retrieves a PatientHistory by his id by calling the repository
      * @param id
-     * @return
+     * @return PatientHistoryDTO
      */
     @Override
     public PatientHistoryDTO findById(String id) {
@@ -61,8 +57,9 @@ public class PatientHistoryServiceImp implements IPatientHistoryService {
 
     /** ------------------------------------------------------------------------------------------------------------
      *
+     * Method who retrieves  all PatientHistory of patientid by calling the repository
      * @param patientId
-     * @return
+     * @return List<PatientHistoryDTO>
      */
     @Override
     public List<PatientHistoryDTO> findAllByPatientId(Integer patientId) {
@@ -73,8 +70,9 @@ public class PatientHistoryServiceImp implements IPatientHistoryService {
 
     /** ------------------------------------------------------------------------------------------------------------
      *
+     * Method to add a PatientHistory
      * @param patientHistoryDTO
-     * @return
+     * @return PatientHistoryDTO added
      */
     @Override
     public PatientHistoryDTO addPatientHistory(PatientHistoryDTO patientHistoryDTO) {
@@ -90,18 +88,25 @@ public class PatientHistoryServiceImp implements IPatientHistoryService {
 
     /** ------------------------------------------------------------------------------------------------------------
      *
-     * @param id
-     * @param patientHystoryDTO
-     * @return
+     * Method to update a PatientHistory with his id and new params
+     * @param id String
+     * @param patientHistoryDTO  PatientHistoryDTO
+     * @return PatientHistoryDTO
      */
     @Override
-    public PatientHistoryDTO updatePatientHistory(Integer id, PatientHistoryDTO patientHystoryDTO) {
+    public PatientHistoryDTO updatePatientHistory(String id, PatientHistoryDTO patientHistoryDTO) {
         logger.info(" ---> Launch updatePatientHistory with id = " + id);
-        return null;
+        PatientHistory patientHistory = patientHistoryRepository.findById(id).orElseThrow(() ->
+                new DataNotFoundException("PatientHistory with id = " + id + " is unknown "));
+        patientHistoryDTO.setId(id);
+        PatientHistory phUpdate = patientHistoryRepository.save(modelBuilder.buildPatientHistory(patientHistoryDTO));
+        logger.info(" ---> PatientHistory with id = " + id + " update success !");
+        return dtoBuilder.buildPatientHistoryDTO(phUpdate);
     }
 
     /** ------------------------------------------------------------------------------------------------------------
      *
+     * Method to delete a PatientHistory with his id
      * @param id
      */
     @Override
@@ -111,7 +116,7 @@ public class PatientHistoryServiceImp implements IPatientHistoryService {
         logger.info(" ---> PatientHistory note id:-"+ id +"- deleted !");
     }
 
-    /** ------------------------------------------------------------------------------------------------------------
+    /** ------------- Tool ------------------------------------------------------------------------------------------
      *
      * Method utility to build a List<PatienHistorytDTO> from a List<PatientHistory> using dtoBuilder
      * @param patientHistories

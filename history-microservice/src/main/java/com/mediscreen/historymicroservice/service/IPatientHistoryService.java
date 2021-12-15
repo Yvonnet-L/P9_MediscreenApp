@@ -17,7 +17,7 @@ public interface IPatientHistoryService {
 
     PatientHistoryDTO addPatientHistory(PatientHistoryDTO patientHistoryDTO);
 
-    PatientHistoryDTO updatePatientHistory(Integer id, PatientHistoryDTO patientHystoryDTO);
+    PatientHistoryDTO updatePatientHistory(String id, PatientHistoryDTO patientHistoryDTO);
 
     void deletePatientHistory(String id);
 }

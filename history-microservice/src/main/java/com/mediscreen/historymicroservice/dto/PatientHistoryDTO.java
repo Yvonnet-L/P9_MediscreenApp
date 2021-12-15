@@ -12,6 +12,7 @@ import java.time.LocalDate;
 /**
  * Data Transfer Object of the PatientHistory class with the input constraints,
  * used for validation of incoming data
+ * @See PatientHistory
  */
 
 @Getter

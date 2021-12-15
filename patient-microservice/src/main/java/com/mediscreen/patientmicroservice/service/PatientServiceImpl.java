@@ -33,6 +33,7 @@ public class PatientServiceImpl implements IPatientService{
     private static Logger logger = LogManager.getLogger(PatientServiceImpl.class);
 
     /**  ----------------------------------------------------------------------------------------------------------
+     *
      * Method which returns the list of all the patients existing in the database by calling the repository
      * @return patientDTOS List<PatientDTO>
      */
@@ -40,16 +41,11 @@ public class PatientServiceImpl implements IPatientService{
     public List<PatientDTO> findAll() {
         logger.info(" ---> Launch findAll");
         List<Patient> patients = patientRepository.findAll();
-
-        List<PatientDTO> patientDTOS = new ArrayList<>();
-        for (Patient p: patients) {
-          patientDTOS.add(dtoBuilder.buildPatientDTO(p));
-        }
-
         return listPatientToListDTO(patients);
     }
 
     /**  ----------------------------------------------------------------------------------------------------------
+     *
      * Method who retrieves a Patient by his id by calling the repository
      * @param id
      * @return patientDTO
@@ -64,6 +60,7 @@ public class PatientServiceImpl implements IPatientService{
     }
 
     /**  ----------------------------------------------------------------------------------------------------------
+     *
      * Search method for patients having their last names starting with the transmitted variable
      * by calling the repository
      * @param familyName
@@ -74,7 +71,7 @@ public class PatientServiceImpl implements IPatientService{
         logger.info(" ---> Launch findByFamilyNameStartingWith with familyName = " + familyName);
         List<Patient> patients = patientRepository.findByFamilyNameStartingWith(familyName);
         List<PatientDTO> patientDTOS = listPatientToListDTO(patients);
-            return patientDTOS;
+        return patientDTOS;
     }
 
     /** ----------------------------------------------------------------------------------------------------------
@@ -131,7 +128,8 @@ public class PatientServiceImpl implements IPatientService{
         patientRepository.delete(patient);
     }
 
-    /** ----------------------------------------------------------------------------------------------------------
+    /** --------------- Tool ------------------------------------------------------------------------------------------
+     *
      * Method utility to build a List<PatientDTO> from a List<Patient> using dtoBuilder
      * @param patients  List<Patient>
      * @return patientDTOS List<PatientDTO>
