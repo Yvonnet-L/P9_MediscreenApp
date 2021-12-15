@@ -2,11 +2,9 @@ package com.clientui.clientui.proxies;
 
 import com.clientui.clientui.beans.PatientHistory;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -30,9 +28,12 @@ public interface HistoryMicroserviceProxy {
      * @param patientId
      * @return  List<PatientHistory>
      */
-    @GetMapping("/patHistory/patientId/{patientId}")
+    @GetMapping("/patHistory/{patientId}")
     List<PatientHistory> getPatientHistoryBypatientId(@PathVariable(name = "patientId") Integer patientId);
 
     @PostMapping("/patHistory/add")
-    PatientHistory addPatients(@RequestBody PatientHistory patientHistory);
+    PatientHistory addPatientHistory(@Valid @RequestBody PatientHistory patientHistory);
+
+    @DeleteMapping(value="/patHistory/delete/{id}")
+    void deletePatientHistory(@PathVariable("id") String id);
 }

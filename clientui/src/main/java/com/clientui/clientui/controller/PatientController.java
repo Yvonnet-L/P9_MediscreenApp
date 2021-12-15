@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Controller
-public class ClientController {
+public class PatientController {
 
     @Autowired
     IPatientService patientService;
@@ -30,7 +30,7 @@ public class ClientController {
     PatientMicroserviceProxy patientMicroserviceProxy;
 
 
-    private static Logger logger = LogManager.getLogger(ClientController.class);
+    private static Logger logger = LogManager.getLogger(PatientController.class);
 
     /**
      *  Home Page of Mediscreen

@@ -63,9 +63,9 @@
                 <td style="width: 10%" th:text="${patientNotes.date}"></td>
                 <td style="width: 55%" th:text="${patientNotes.notes}"></td>
                 <td style="width: 25%" class="text-center">
-                    <a th:href="@{/patient/update/{id}(id=${patientNotes.id})}" class="btn btn-info btn-sm">Edit</a>
-                    <a th:href="@{/patient/delete/{id}(id=${patientNotes.id})}" class="btn btn-warning btn-sm"
-                       onclick="return confirm( 'Are you sure you want to delete this item??')">Delete</a>
+                    <a th:href="@{/patHistory/update/{id}(id=${patientNotes.id})}" class="btn btn-info btn-sm">Edit</a>
+                    <a th:href="@{/patHistory/delete/{id}&{patientid}(id=${patientNotes.id},patientid=${patientNotes.patientId})}"
+                       class="btn btn-warning btn-sm" onclick="return confirm( 'Are you sure you want to delete this item??')">Delete</a>
                 </td>
             </tr>
             </tbody>

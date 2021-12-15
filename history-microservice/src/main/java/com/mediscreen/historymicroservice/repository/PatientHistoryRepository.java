@@ -5,7 +5,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface HistoryRepository extends MongoRepository<PatientHistory, Integer> {
+public interface PatientHistoryRepository extends MongoRepository<PatientHistory, String> {
 
     List<PatientHistory> findAllByPatientId(Integer patientId);
+
 }

@@ -1,4 +1,4 @@
-package com.mediscreen.patientmicroservice.exception;
+package com.mediscreen.historymicroservice.exception;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
