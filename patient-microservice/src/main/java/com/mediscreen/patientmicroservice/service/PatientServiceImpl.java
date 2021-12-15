@@ -38,12 +38,15 @@ public class PatientServiceImpl implements IPatientService{
      */
     @Override
     public List<PatientDTO> findAll() {
+        logger.info(" ---> Launch findAll");
         List<Patient> patients = patientRepository.findAll();
+
         List<PatientDTO> patientDTOS = new ArrayList<>();
         for (Patient p: patients) {
           patientDTOS.add(dtoBuilder.buildPatientDTO(p));
         }
-        return patientDTOS;
+
+        return listPatientToListDTO(patients);
     }
 
     /**  ----------------------------------------------------------------------------------------------------------
@@ -53,6 +56,7 @@ public class PatientServiceImpl implements IPatientService{
      */
     @Override
     public PatientDTO findById(Integer id) {
+        logger.info(" ---> Launch findById id = " + id);
         Patient patient = patientRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException("Patient with this id is unknown"));
         PatientDTO patientDTO = dtoBuilder.buildPatientDTO(patient);
@@ -67,6 +71,7 @@ public class PatientServiceImpl implements IPatientService{
      */
     @Override
     public List<PatientDTO> findByFamilyNameStartingWith(String familyName) {
+        logger.info(" ---> Launch findByFamilyNameStartingWith with familyName = " + familyName);
         List<Patient> patients = patientRepository.findByFamilyNameStartingWith(familyName);
         List<PatientDTO> patientDTOS = listPatientToListDTO(patients);
             return patientDTOS;
@@ -102,7 +107,7 @@ public class PatientServiceImpl implements IPatientService{
      */
     @Override
     public PatientDTO updatePatient(Integer id, PatientDTO patientDTO) {
-        logger.info(" ---> Launch updatePatient");
+        logger.info(" ---> Launch updatePatient id = " + id);
         Patient patient = patientRepository.findById(id).orElseThrow(() ->
                 new DataNotFoundException("Patient with this id is unknown"));
         patientDTO.setId(id);
@@ -118,6 +123,7 @@ public class PatientServiceImpl implements IPatientService{
      */
     @Override
     public void deletePatient(Integer id) {
+        logger.info(" ---> Launch deletePatient id = " + id);
         Patient patient = patientRepository.findByIdPatient(id);
         if (patient == null) {
             throw new DataNotFoundException("Can not find the entity patient with id = " + id );
