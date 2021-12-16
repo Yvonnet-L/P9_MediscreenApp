@@ -28,7 +28,7 @@ public interface HistoryMicroserviceProxy {
      * @param patientId
      * @return  List<PatientHistory>
      */
-    @GetMapping("/patHistory/{patientId}")
+    @GetMapping("/patHistories/{patientId}")
     List<PatientHistory> getPatientHistoryBypatientId(@PathVariable(name = "patientId") Integer patientId);
 
     @PostMapping("/patHistory/add")
@@ -36,4 +36,9 @@ public interface HistoryMicroserviceProxy {
 
     @DeleteMapping(value="/patHistory/delete/{id}")
     void deletePatientHistory(@PathVariable("id") String id);
+
+    @GetMapping("/patHistory/{id}")
+    PatientHistory getPatientHistoryById(@PathVariable(name = "id") String id);
+
+
 }

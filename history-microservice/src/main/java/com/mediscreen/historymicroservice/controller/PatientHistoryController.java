@@ -35,13 +35,20 @@ public class PatientHistoryController {
         return patientHistoryDTOS;
     }
 
+    @GetMapping("/patHistory/{id}")
+    public PatientHistoryDTO getPatientHistoryById(@PathVariable(name = "id") String id){
+        logger.info(" ---> Launch getAllPatientHistories()");
+        PatientHistoryDTO patientHistoryDTO = patientHistoryService.findById(id);
+        return patientHistoryDTO;
+    }
+
     /** ------- Get --- getPatientHistoryBypatientId ---------------------------------------------------------------
      * Returns the history of all the notes of a patient by his id
      * @param patientId
      * @return patientHistoryList List<PatientHistory>
      */
     @ApiOperation(value="Returns the history of all the notes of a patient by his id")
-    @GetMapping("/patHistory/{patientId}")
+    @GetMapping("/patHistories/{patientId}")
     public List<PatientHistoryDTO> getPatientHistoryBypatientId(@PathVariable(name = "patientId") Integer patientId){
         logger.info(" ---> Launch getPatientHistoryBypatientId() - id = " + patientId);
         List<PatientHistoryDTO> patientHistoryDTOS = patientHistoryService.findAllByPatientId(patientId);

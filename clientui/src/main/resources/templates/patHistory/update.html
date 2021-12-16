@@ -38,50 +38,47 @@
 
     <div class="row">
         <div class="form-group">
-            <h2>Add New Note</h2>
+            <h2>Update Note</h2>
             <br>
             <div th:if="${patientId}" th:utext="${patientId}"
                  style=" color:blue; font-style:italic ; font-weight: bold; font-size:1.4em"> </div>
         </div>
     </div>
     <div class="row">
-        <form action="Post" th:action="@{/patHistory/validate}" th:object="${patientHistoryDTO}" method="post" class="form-horizontal" style="width: 100%">
+        <form action="Post" th:action="@{/patHistory/update/{id}(id=${patientHistoryDTO.Id}}"
+                                th:object="${patientHistoryDTO}" method="post" class="form-horizontal" style="width: 100%">
 
             <input type="hidden" th:field="*{patientId}" id="patientId"   class="form-control col-4">
             <!-- date  -->
             <div class="form-group">
                 <!--   <label for="date" class="col-sm-1 control-label">Date</label>  -->
-                   <div class="col-md-10">
-                       <SCRIPT LANGUAGE="JavaScript">
-                        var today =new Date().toISOString().split("T")[0];
-                            document.write(today);
-                            document.getElementById("date").setAttribute("max", today);
-                            document.getElementById("date").setAttribute("placeholder", today)
-                        </SCRIPT>
-
-                       <input type="date"  min="1900-01-01"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
-                              required th:field="*{date}" id="date"   class="form-control col-4">
-                       <p class="text-danger" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
-                       <div th:if="${msgAlertDate}" th:utext="${msgAlertDate}" class="text-danger" style="font-size:1em"> </div>
-                   </div>
-               </div>
-               <!-- note  -->
+                <div class="col-md-10">
+                    <div class="text-warning">
+                        <td th:text="${patientHistoryDTO.date}"></td><a> ~ previous validation date</a>
+                    </div>
+                    <input type="date"  min="1900-01-01"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                           required th:field="*{date}" id="date" class="form-control col-4">
+                    <p class="text-danger" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
+                    <div th:if="${msgAlertDate}" th:utext="${msgAlertDate}" class="text-danger" style="font-size:1em"> </div>
+                </div>
+            </div>
+            <!-- note  -->
             <div class="form-group">
                 <!--  <label for="notes" class="col-sm-1 control-label">Notes</label>  -->
-                  <div class="col-md-10">
+                <div class="col-md-10">
                       <textarea type="text" style="height:200px;" th:field="*{notes}"
                                 id="notes" placeholder="notes"  class="form-control col-8" required>
                           </textarea>
-                      <p class="text-danger" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></p>
-                  </div>
-              </div>
+                    <p class="text-danger" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></p>
+                </div>
+            </div>
 
-              <br>
-              <!-- Buttons validation / cancel  -->
+            <br>
+            <!-- Buttons validation / cancel  -->
             <div class="form-group">
                 <div class="col-md-8">
-                    <input class="btn btn-primary btn-sm" type="submit" value="Add Notes">
-                    <a class="btn btn-danger btn-sm" th:href="@{/patHistories/{id}(id=${patientId})}">Cancel</a>
+                    <input class="btn btn-primary btn-sm" type="submit" value="Update Notes">
+                    <a class="btn btn-danger btn-sm" th:href="@{/patHistories/{id}(id=${patientHistoryDTO.patientId})}">Cancel</a>
                 </div>
             </div>
 

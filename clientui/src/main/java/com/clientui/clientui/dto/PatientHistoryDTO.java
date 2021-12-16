@@ -3,6 +3,7 @@ package com.clientui.clientui.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,7 +23,8 @@ public class PatientHistoryDTO {
     @NotBlank(message = "Date is mandatory")
     private String date;
 
-    @NotNull(message = "Notes is mandatory")
+    @NotBlank(message = "Notes is mandatory")
+    @Length( min = 2, max = 200 , message = "the address must contain at least 2 characters and max 800")
     private String notes;
 
 

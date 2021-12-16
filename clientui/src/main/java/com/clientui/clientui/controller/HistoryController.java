@@ -9,11 +9,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class HistoryController {
         return "patHistory/patientHistories";
     }
 
-    @GetMapping("/patHistory/{patientId}")
+    @GetMapping("/patHistories/{patientId}")
     public String getPatientHistory(@PathVariable("patientId") Integer patientId, Model model){
         List<PatientHistory> patientHistories =  historyMicroserviceProxy.getPatientHistoryBypatientId(patientId);
         model.addAttribute("patientId", patientId);
@@ -51,26 +53,51 @@ public class HistoryController {
         PatientHistoryDTO patientHistory = new PatientHistoryDTO(patientId, LocalDate.now(),"");
         model.addAttribute("patientId", patientId);
         patientHistory.setPatientId(patientId);
+        model.addAttribute("msgAlertDate", "");
         model.addAttribute("patientHistoryDTO", patientHistory);
         return "patHistory/add";
     }
 
     @PostMapping("/patHistory/validate")
-    public String validate(@Valid PatientHistoryDTO patientHistoryDTO, Model model) {
+    public String validateNewPatHistory(@Valid PatientHistoryDTO patientHistoryDTO, BindingResult result, Model model) {
+        logger.info(" ----> Launch Post validateNewPatHistory  with PatientId = " + patientHistoryDTO.getPatientId());
+
+        LocalDate today = LocalDate.now();
+        if (Date.valueOf(patientHistoryDTO.getDate()).after(Date.valueOf(LocalDate.now().toString()))){
+            String msgAlertDate = "The date cannot be later than today's date";
+            model.addAttribute("msgAlertDate", msgAlertDate);
+            return "patHistory/add";
+        }else{
+            model.addAttribute("msgAlertDate", "");
+        }
+
+        if(result.hasErrors()) {
+            logger.info("**** nb ERRROR *** "+ result.getErrorCount());
+            logger.info("**** nb ERRROR *** "+ result.getAllErrors());
+            model.addAttribute("patientHistoryDTO", patientHistoryDTO);
+            return "patHistory/add";
+        }
         PatientHistory patientHistory = new PatientHistory();
         patientHistory.setPatientId(patientHistoryDTO.getPatientId());
         patientHistory.setDate(LocalDate.parse(patientHistoryDTO.getDate()));
         patientHistory.setNotes(patientHistoryDTO.getNotes());
 
         historyMicroserviceProxy.addPatientHistory(patientHistory);
-        return "redirect:/patHistory/"+patientHistoryDTO.getPatientId();
+        return "redirect:/patHistories/"+patientHistoryDTO.getPatientId();
     }
-
+    //-------- Put ---- /patHistory/update/{id}
+    @GetMapping("/patHistory/update/{id}")
+    public String getUpdatePatient(@PathVariable("id") String id, Model model){
+        logger.info(" ----> Launch Get /patHistory/update/{id} with id=" + id);
+        PatientHistory patientHistory = historyMicroserviceProxy.getPatientHistoryById(id);
+        model.addAttribute("patientHistoryDTO", patientHistory);
+        return "patHistory/update";
+    }
     //---------Get----- /patient/delete/id  ---------------------------------------------------------------------------
     @GetMapping("/patHistory/delete/{id}&{patientid}")
     public String deletePatient(@PathVariable("id") String id, @PathVariable("patientid") Integer patientId){
         logger.info(" ----> Launch /pathistory/delete/id - note id: " + id + " - - " + patientId);
        historyMicroserviceProxy.deletePatientHistory(id);
-        return "redirect:/patHistory/" + patientId;
+        return "redirect:/patHistories/" + patientId;
     }
 }

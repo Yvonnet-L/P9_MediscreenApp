@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class PatientHistoryITest {
+public class PatientHistoryTest {
 
     @Autowired
     private PatientHistoryServiceImp patientHistoryService;

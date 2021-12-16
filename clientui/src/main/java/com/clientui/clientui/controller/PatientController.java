@@ -105,7 +105,7 @@ public class PatientController {
      * @return update.html in folder patient with msg
      */
     //---------Put----- /patient/update/{id} --------------------------------------------------------------------
-    @PostMapping("/patient/update/{id}")
+    @PutMapping("/patient/update/{id}")
     public String updatePatient(@PathVariable("id") Integer id, @Valid PatientDTO patientDTO,
                                 BindingResult result, Model model){
         logger.info(" ----> Launch Post /patient/update/{id} with id=" + id);
