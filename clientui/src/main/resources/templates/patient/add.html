@@ -69,6 +69,7 @@
                         <input class="form-control col-4" type="date"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required
                                th:field="*{dateOfBirth}" id="dateOfBirth" placeholder="yyyy-MM-dd">
                         <p class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></p>
+                        <div th:if="${msgAlertDate}" th:utext="${msgAlertDate}" class="text-danger" style="font-size:1em"> </div>
                     </div>
                 </div>
                 <!-- sex  -->

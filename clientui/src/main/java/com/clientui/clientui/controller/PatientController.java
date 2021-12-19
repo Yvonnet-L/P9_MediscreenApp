@@ -10,9 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,13 @@ public class PatientController {
 
     private static Logger logger = LogManager.getLogger(PatientController.class);
 
+    private String message;
+
+    @Autowired
+    public PatientController(final PatientMicroserviceProxy patientMicroserviceProxy){
+        this.patientMicroserviceProxy = patientMicroserviceProxy;
+    }
+
     /**
      *  Home Page of Mediscreen
      * @return home.html
@@ -50,15 +62,16 @@ public class PatientController {
      */
     //---------Get----- /patient/list ---------------------------------------------------------------------------
     @GetMapping("/patient/list")
-    public String getPatients(Model model, @Param("stringSearch")  String stringSearch){
+    public String getPatients(Model model, @Param("stringSearch")  String stringSearch,
+                              @RequestParam(name="message", defaultValue = "") String message){
         logger.info(" ----> Launch /patients getPatients()");
         List<PatientDTO> patientDTOS = new ArrayList<>();
         if(stringSearch.isBlank()){
-            patientDTOS = patientService.getAllPatients();
+           patientDTOS = patientService.getAllPatients();
        } else {
             patientDTOS = patientService.getPatientStartingFamilyNameWith( stringSearch);
         }
-
+        model.addAttribute("message", message);
         model.addAttribute("patientDTOS", patientDTOS);
         model.addAttribute("stringSearch", stringSearch);
         return "patient/list";
@@ -73,11 +86,10 @@ public class PatientController {
     @GetMapping("/patient/delete/{id}")
     public String deletePatient(@PathVariable("id") Integer id){
         logger.info(" ----> Launch /patient/delete/id - deletePatient()");
-        patientService.deletePatientById(id);
-        logger.info( "  --> ** patient Deleted ** id: " + id);
-        return   "redirect:/patient/list?stringSearch=";
+           message = patientService.deletePatientById(id);
+             message = "Patient with id "+id+" deleted ! ";
+        return   "redirect:/patient/list?stringSearch=&message="+ message;
     }
-
     /**
      * Launches the patient's update page by his id
      * @param id
@@ -89,8 +101,13 @@ public class PatientController {
     public String getUpdatePatient(@PathVariable("id") Integer id, Model model){
         logger.info(" ----> Launch Get /patient/update/{id} with id=" + id);
         PatientDTO patientDTO = patientService.getById(id);
+       if(patientDTO==null){
+            message="Patient with id "+id+" not found ! ";
+            return   "redirect:/patient/list?stringSearch=&message="+ message;
+        }
         model.addAttribute("patientDTO", patientDTO);
         return "patient/update";
+
     }
 
     /**
@@ -105,22 +122,24 @@ public class PatientController {
      * @return update.html in folder patient with msg
      */
     //---------Put----- /patient/update/{id} --------------------------------------------------------------------
-    @PutMapping("/patient/update/{id}")
+    @PostMapping("/patient/update/{id}")
     public String updatePatient(@PathVariable("id") Integer id, @Valid PatientDTO patientDTO,
                                 BindingResult result, Model model){
         logger.info(" ----> Launch Post /patient/update/{id} with id=" + id);
+        if (Date.valueOf(patientDTO.getDateOfBirth()).after(Date.valueOf(LocalDate.now().toString()))){
+            model.addAttribute("msgAlertDate", "The date cannot be later than today's date");
+            return "patient/update";
+        }else{
+            model.addAttribute("msgAlertDate", "");
+        }
         if(result.hasErrors()) {
             model.addAttribute("patientDTO", patientDTO);
             model.addAttribute(id);
             return "patient/update";
         }
-        String msg =  patientService.updatePatient(patientDTO, id);
-        model.addAttribute("message", msg);
-        logger.info( "  --> **  Patient update success ** id: " + id);
-        //return   "redirect:/patient/list?stringSearch=";
-        return "patient/update";
+        message = patientService.updatePatient(patientDTO, id);
+        return   "redirect:/patient/list?stringSearch="+patientDTO.getFamilyName()+"&message="+ message;
     }
-
     /**
      * Launches the page for creating a new patient
      * @param patientDTO
@@ -132,7 +151,6 @@ public class PatientController {
         logger.info(" ----> Launch /patient/add getAddPatient");
         return "patient/add";
     }
-
     /**
      *   Starts updating patient data with data consistency check using the PatientDTO
      *   javax.validation.constraints.Pattern.
@@ -149,14 +167,17 @@ public class PatientController {
     public String validate(@Valid PatientDTO patientDTO, BindingResult result, Model model,
                            @RequestParam(name="message", defaultValue = "") String message) {
         logger.info( "--> Launch /bidList/validate");
+        if (Date.valueOf(patientDTO.getDateOfBirth()).after(Date.valueOf(LocalDate.now().toString()))){
+            model.addAttribute("msgAlertDate", "The date cannot be later than today's date");
+            return "patient/add";
+        }else{
+            model.addAttribute("msgAlertDate", "");
+        }
         if(result.hasErrors()){
             logger.info( "  --> **  Errors ** Nb error: " + result.getErrorCount());
             return "patient/add";
         }
-        String msg = patientService.addPatient(patientDTO);
-        logger.info( "  --> **  Patient saved **");
-        model.addAttribute("message", msg);
-        return "patient/add";
-       // return  "redirect:/patient/list?stringSearch=";
+        message = patientService.addPatient(patientDTO);
+        return   "redirect:/patient/list?stringSearch="+patientDTO.getFamilyName()+"&message="+ message;
     }
 }

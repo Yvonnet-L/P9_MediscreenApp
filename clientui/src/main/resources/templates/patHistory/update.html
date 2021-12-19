@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="row">
-        <form action="Post" th:action="@{/patHistory/update/{id}(id=${patientHistoryDTO.Id}}"
+        <form action="#" th:action="@{/patHistory/update/{id}(id=${patientHistoryDTO.Id})}"
                                 th:object="${patientHistoryDTO}" method="post" class="form-horizontal" style="width: 100%">
 
             <input type="hidden" th:field="*{patientId}" id="patientId"   class="form-control col-4">

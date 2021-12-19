@@ -40,7 +40,7 @@
 
 
                 <div class="container" style="..." align="center">
-                <h4>Research by Family Name</h4>
+                     <h4>Research by Family Name</h4>
                     <nav class="navbar navbar-light bg-light justify-content-between">
                     <form th:action="@{/patient/list}" class="form-inline" align="center">
                         <input class="form-control mr-sm-2" type="text" name="stringSearch" id="stringSearch" size="50" th:value="${stringSearch}">
@@ -48,7 +48,11 @@
                         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     </nav>
-            </div>
+                    <br>
+                    <div th:if="${message}" th:utext="${message}" class="text-info"
+                         style=" font-weight: bold; font-size:1.2em"> </div>
+
+                 </div>
 
     </div>
         <br/><br/>

@@ -1,9 +1,8 @@
 package com.clientui.clientui.controller;
 
 
-import com.clientui.clientui.beans.PatientHistory;
 import com.clientui.clientui.dto.PatientHistoryDTO;
-import com.clientui.clientui.proxies.HistoryMicroserviceProxy;
+import com.clientui.clientui.service.IHistoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.sql.Date;
@@ -24,10 +24,11 @@ import java.util.List;
 public class HistoryController {
 
     @Autowired
-    HistoryMicroserviceProxy historyMicroserviceProxy;
+    IHistoryService historyService;
 
     private static Logger logger = LogManager.getLogger(HistoryController.class);
 
+    private String message;
     /** ------- Get ---- getAllPatientHistories ---------------------------------------------------------
      * Retrieves and displays the list of all history notes patients
      * @param model
@@ -35,69 +36,130 @@ public class HistoryController {
      */
     @GetMapping("/patHistories")
     public String getAllPatientHistories(Model model){
-        List<PatientHistory> patientHistories =  historyMicroserviceProxy.getAllPatientHistories();
-        model.addAttribute("patientHistories", patientHistories);
+        List<PatientHistoryDTO> patientHistoriesDTO =  historyService.findAllPatientHistories();
+        model.addAttribute("patientHistories", patientHistoriesDTO);
         return "patHistory/patientHistories";
     }
 
+    /**
+     *
+     * @param patientId
+     * @param model
+     * @return
+     */
     @GetMapping("/patHistories/{patientId}")
-    public String getPatientHistory(@PathVariable("patientId") Integer patientId, Model model){
-        List<PatientHistory> patientHistories =  historyMicroserviceProxy.getPatientHistoryBypatientId(patientId);
+    public String getPatientHistory(@PathVariable("patientId") Integer patientId,
+                                    @RequestParam(name="message", defaultValue = "") String message, Model model){
+        List<PatientHistoryDTO> patientHistoriesDTO =  historyService.findPatientHistoriesNotes(patientId);
         model.addAttribute("patientId", patientId);
-        model.addAttribute("patientHistories", patientHistories);
+        model.addAttribute("patientHistories", patientHistoriesDTO);
+        model.addAttribute("message", message);
         return "patHistory/patientNotes";
     }
 
-    @GetMapping("/patHistory/add/{Id}")
-    public String getAddPatientNote(@PathVariable("Id") Integer patientId, Model model){
-        PatientHistoryDTO patientHistory = new PatientHistoryDTO(patientId, LocalDate.now(),"");
+    /**
+     *
+     * @param patientId
+     * @param model
+     * @return
+     */
+    @GetMapping("/patHistory/add/{IdPatient}")
+    public String getAddPatientNote(@PathVariable("IdPatient") Integer patientId, Model model){
+        PatientHistoryDTO patientHistoryDTO = new PatientHistoryDTO(patientId, LocalDate.now(),"");
         model.addAttribute("patientId", patientId);
-        patientHistory.setPatientId(patientId);
+        patientHistoryDTO.setPatientId(patientId);
         model.addAttribute("msgAlertDate", "");
-        model.addAttribute("patientHistoryDTO", patientHistory);
+        model.addAttribute("patientHistoryDTO", patientHistoryDTO);
         return "patHistory/add";
     }
 
+    /**
+     *
+     * @param patientHistoryDTO
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/patHistory/validate")
     public String validateNewPatHistory(@Valid PatientHistoryDTO patientHistoryDTO, BindingResult result, Model model) {
         logger.info(" ----> Launch Post validateNewPatHistory  with PatientId = " + patientHistoryDTO.getPatientId());
-
+        // Gestion de la date si Posterieur à la date du jour
         LocalDate today = LocalDate.now();
         if (Date.valueOf(patientHistoryDTO.getDate()).after(Date.valueOf(LocalDate.now().toString()))){
-            String msgAlertDate = "The date cannot be later than today's date";
-            model.addAttribute("msgAlertDate", msgAlertDate);
+            model.addAttribute("msgAlertDate","The date cannot be later than today's date");
             return "patHistory/add";
         }else{
             model.addAttribute("msgAlertDate", "");
         }
-
         if(result.hasErrors()) {
-            logger.info("**** nb ERRROR *** "+ result.getErrorCount());
-            logger.info("**** nb ERRROR *** "+ result.getAllErrors());
             model.addAttribute("patientHistoryDTO", patientHistoryDTO);
             return "patHistory/add";
         }
-        PatientHistory patientHistory = new PatientHistory();
-        patientHistory.setPatientId(patientHistoryDTO.getPatientId());
-        patientHistory.setDate(LocalDate.parse(patientHistoryDTO.getDate()));
-        patientHistory.setNotes(patientHistoryDTO.getNotes());
-
-        historyMicroserviceProxy.addPatientHistory(patientHistory);
-        return "redirect:/patHistories/"+patientHistoryDTO.getPatientId();
+        message = historyService.addPatientHistory(patientHistoryDTO);
+        return "redirect:/patHistories/"+patientHistoryDTO.getPatientId()+"?message="+ message;
     }
-    //-------- Put ---- /patHistory/update/{id}
-    @GetMapping("/patHistory/update/{id}")
-    public String getUpdatePatient(@PathVariable("id") String id, Model model){
+    //-------- Get ---- /patHistory/update/{id} ---------------------------------------------------------------------
+    /**
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/patHistory/update/{id}&{patientid}")
+    public String getUpdatePatHistory(@PathVariable("id") String id, @PathVariable("patientid") Integer patientId,
+                                                            Model model){
         logger.info(" ----> Launch Get /patHistory/update/{id} with id=" + id);
-        PatientHistory patientHistory = historyMicroserviceProxy.getPatientHistoryById(id);
-        model.addAttribute("patientHistoryDTO", patientHistory);
+        PatientHistoryDTO patientHistoryDTO = historyService.findPatientHistoryById(id);
+        if(patientHistoryDTO==null){
+            message="Note with id "+id+" not found ! ";
+            return "redirect:/patHistories/"+patientId+"?message="+ message;
+        }
+        model.addAttribute("patientHistoryDTO", patientHistoryDTO);
         return "patHistory/update";
     }
+    //-------- Put ---- /patHistory/update/{id} --------------------------------------------------------------------
+
+    /**
+     *
+     * @param id
+     * @param patientHistoryDTO
+     * @param result
+     * @param model
+     * @return
+     */
+    @PostMapping("/patHistory/update/{id}")
+    public String updatePatHistory(@PathVariable("id") String id, @Valid PatientHistoryDTO patientHistoryDTO,
+                                                    BindingResult result, Model model){
+
+        logger.info(" ----> Launch Put updatePatientHistory  with PatientId = " + patientHistoryDTO.getPatientId());
+        // Gestion de la date si Posterieur à la date du jour
+        LocalDate today = LocalDate.now();
+        if (Date.valueOf(patientHistoryDTO.getDate()).after(Date.valueOf(LocalDate.now().toString()))){
+            model.addAttribute("msgAlertDate", "The date cannot be later than today's date");
+            return "patHistory/update";
+        }else{
+            model.addAttribute("msgAlertDate", "");
+        }
+        if(result.hasErrors()) {
+            model.addAttribute("patientHistoryDTO", patientHistoryDTO);
+            return "patHistory/update";
+        }
+            message = historyService.updatePatientHistory(id, patientHistoryDTO);
+        return "redirect:/patHistories/"+patientHistoryDTO.getPatientId()+"?message="+ message;
+        //return "redirect:/patHistories/" + patientHistoryDTO.getPatientId();
+    }
     //---------Get----- /patient/delete/id  ---------------------------------------------------------------------------
+
+    /**
+     *
+     * @param id
+     * @param patientId
+     * @return
+     */
     @GetMapping("/patHistory/delete/{id}&{patientid}")
     public String deletePatient(@PathVariable("id") String id, @PathVariable("patientid") Integer patientId){
         logger.info(" ----> Launch /pathistory/delete/id - note id: " + id + " - - " + patientId);
-       historyMicroserviceProxy.deletePatientHistory(id);
-        return "redirect:/patHistories/" + patientId;
+        message = historyService.deletePatientHistory(id);
+        return "redirect:/patHistories/" + patientId+"?message="+ message;
     }
 }

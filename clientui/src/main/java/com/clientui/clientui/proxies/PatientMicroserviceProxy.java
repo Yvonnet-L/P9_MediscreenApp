@@ -1,7 +1,7 @@
 package com.clientui.clientui.proxies;
 
 
-import com.clientui.clientui.beans.Patient;
+import com.clientui.clientui.dto.PatientDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ public interface PatientMicroserviceProxy {
      * @return List<PatientDTO>
      */
     @GetMapping("/patients")
-    List<Patient> getAllPatients();
+    List<PatientDTO> getAllPatients();
 
     /** ---------------------------------------------------------------------------------------------
      * Connection to the uri which returns the patient found by his id
@@ -28,7 +28,7 @@ public interface PatientMicroserviceProxy {
      * @return Patient
      */
     @GetMapping(value="/patient/{id}")
-    Patient getPatientById(@PathVariable(name = "id") Integer id);
+    PatientDTO getPatientById(@PathVariable(name = "id") Integer id);
 
     /** ---------------------------------------------------------------------------------------------
      *  Connection to the uri which returns the list of patients found whose last name begins with
@@ -37,7 +37,7 @@ public interface PatientMicroserviceProxy {
      * @return List<Patient>
      */
     @GetMapping(value="/patients/family/{familyName}")
-    List<Patient> getPatientsStartingWith(@PathVariable(name = "familyName") String familyName);
+    List<PatientDTO> getPatientsStartingWith(@PathVariable(name = "familyName") String familyName);
 
     /** ---------------------------------------------------------------------------------------------
      * Connection to the uri which allows the deletion of the patient by his id
@@ -52,14 +52,14 @@ public interface PatientMicroserviceProxy {
      * @return Patient
      */
     @PostMapping(value="/patient/add")
-    Patient addPatient(@Valid @RequestBody Patient patient);
+    PatientDTO addPatient(@Valid @RequestBody PatientDTO patientDTO);
 
     /** ---------------------------------------------------------------------------------------------
      * Connection to the uri which allows the update of the patient
      * @param id
-     * @param patient
-     * @return Patient
+     * @param patientDTO
+     * @return PatientDTO
      */
     @PutMapping(value="/patient/update/{id}")
-    public Patient updatePatient(@PathVariable("id") Integer id,@Valid @RequestBody Patient patient);
+    PatientDTO updatePatient(@PathVariable("id") Integer id,@Valid @RequestBody PatientDTO patientDTO);
 }

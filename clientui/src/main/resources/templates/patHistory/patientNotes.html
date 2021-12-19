@@ -37,9 +37,13 @@
 <div class="container" style="...">
 
     <div class="col-12 text-center"><h2>Patient Note History</h2></div>
-    <br>
-    <div th:if="${patientId}" th:utext="${patientId}"
-         style=" color:blue; font-weight: bold; font-size:1.4em"> </div>
+        <br>
+        <div th:if="${message}" th:utext="${message}" class="text-info text-center"
+             style=" font-weight: bold; font-size:1.2em"> </div>
+        <br>
+        <div th:if="${patientId}" th:utext="${patientId}"
+             style=" color:blue; font-weight: bold; font-size:1.4em"> </div>
+
 </div>
 
 
@@ -63,9 +67,11 @@
                 <td style="width: 10%" th:text="${patientNotes.date}"></td>
                 <td style="width: 55%" th:text="${patientNotes.notes}"></td>
                 <td style="width: 25%" class="text-center">
-                    <a th:href="@{/patHistory/update/{id}(id=${patientNotes.id})}" class="btn btn-info btn-sm">Edit</a>
+                    <a th:href="@{/patHistory/update/{id}&{patientid}(id=${patientNotes.id},patientid=${patientNotes.patientId})}"
+                                                                            class="btn btn-info btn-sm">Edit</a>
                     <a th:href="@{/patHistory/delete/{id}&{patientid}(id=${patientNotes.id},patientid=${patientNotes.patientId})}"
-                       class="btn btn-warning btn-sm" onclick="return confirm( 'Are you sure you want to delete this item??')">Delete</a>
+                       class="btn btn-warning btn-sm" onclick="return confirm( 'Are you sure you want to delete this item??')">
+                                Delete</a>
                 </td>
             </tr>
             </tbody>

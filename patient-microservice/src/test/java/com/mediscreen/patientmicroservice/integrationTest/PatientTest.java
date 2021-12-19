@@ -1,7 +1,7 @@
 package com.mediscreen.patientmicroservice.integrationTest;
 
 import com.mediscreen.patientmicroservice.dto.PatientDTO;
-import com.mediscreen.patientmicroservice.exception.DataNotFoundException;
+import com.mediscreen.patientmicroservice.web.exception.DataNotFoundException;
 import com.mediscreen.patientmicroservice.service.PatientServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -24,7 +24,7 @@ public class PatientHistoryDTO {
     private String date;
 
     @NotBlank(message = "Notes is mandatory")
-    @Length( min = 2, max = 200 , message = "the address must contain at least 2 characters and max 800")
+    @Length( min = 2, max = 5000 , message = "the address must contain at least 2 characters and max 5000")
     private String notes;
 
 

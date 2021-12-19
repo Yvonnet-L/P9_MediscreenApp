@@ -50,7 +50,7 @@ public class PatientHistoryServiceImp implements IPatientHistoryService {
     public PatientHistoryDTO findById(String id) {
         logger.info(" ---> Launch findById with id = " + id);
        PatientHistory patientHistory = patientHistoryRepository.findById(id).orElseThrow(() ->
-                new DataNotFoundException("Patient with this id is unknown"));
+                new DataNotFoundException("PatientHistory with this id is unknown"));
        return dtoBuilder.buildPatientHistoryDTO(patientHistory);
     }
 

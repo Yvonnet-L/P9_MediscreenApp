@@ -248,7 +248,7 @@
 2021-12-15 10:15:33,941 - [http-nio-8081-exec-5] INFO       | com.mediscreen.patientmicroservice.tool.DtoBuilder           |  ----> Launch buildPatientDTO (DtoBuilder.java:24)
 2021-12-15 10:15:58,837 - [http-nio-8081-exec-7] INFO       | com.mediscreen.patientmicroservice.controller.PatientController |  ---> Launch addPatient , /patients/update/{id} with patient id : 8 (PatientController.java:96)
 2021-12-15 10:15:58,838 - [http-nio-8081-exec-7] INFO       | com.mediscreen.patientmicroservice.service.PatientServiceImpl |  ---> Launch updatePatient id = 8 (PatientServiceImpl.java:107)
-2021-12-15 10:15:58,850 - [http-nio-8081-exec-7] ERROR      | com.mediscreen.patientmicroservice.exception.DataNotFoundException |   **--> Patient with this id is unknown (DataNotFoundException.java:15)
+2021-12-15 10:15:58,850 - [http-nio-8081-exec-7] ERROR      | DataNotFoundException |   **--> Patient with this id is unknown (DataNotFoundException.java:15)
 2021-12-15 10:16:11,227 - [http-nio-8081-exec-6] INFO       | com.mediscreen.patientmicroservice.controller.PatientController |  ---> Launch getAllPatients (PatientController.java:35)
 2021-12-15 10:16:11,227 - [http-nio-8081-exec-6] INFO       | com.mediscreen.patientmicroservice.service.PatientServiceImpl |  ---> Launch findAll (PatientServiceImpl.java:42)
 2021-12-15 10:16:11,233 - [http-nio-8081-exec-6] INFO       | com.mediscreen.patientmicroservice.tool.DtoBuilder           |  ----> Launch buildPatientDTO (DtoBuilder.java:24)

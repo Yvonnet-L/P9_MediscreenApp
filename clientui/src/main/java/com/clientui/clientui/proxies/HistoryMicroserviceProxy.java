@@ -1,6 +1,6 @@
 package com.clientui.clientui.proxies;
 
-import com.clientui.clientui.beans.PatientHistory;
+import com.clientui.clientui.dto.PatientHistoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ public interface HistoryMicroserviceProxy {
      * @return List<PatientHistory>
      */
     @GetMapping("/patHistories")
-    List<PatientHistory> getAllPatientHistories();
+    List<PatientHistoryDTO> getAllPatientHistories();
 
     /**
      * Connection to the uri which returns the History Patient Notes found by his id
@@ -29,16 +29,19 @@ public interface HistoryMicroserviceProxy {
      * @return  List<PatientHistory>
      */
     @GetMapping("/patHistories/{patientId}")
-    List<PatientHistory> getPatientHistoryBypatientId(@PathVariable(name = "patientId") Integer patientId);
+    List<PatientHistoryDTO> getPatientHistoryBypatientId(@PathVariable(name = "patientId") Integer patientId);
 
     @PostMapping("/patHistory/add")
-    PatientHistory addPatientHistory(@Valid @RequestBody PatientHistory patientHistory);
+    PatientHistoryDTO addPatientHistory(@Valid @RequestBody PatientHistoryDTO patientHistoryDTO);
 
     @DeleteMapping(value="/patHistory/delete/{id}")
     void deletePatientHistory(@PathVariable("id") String id);
 
     @GetMapping("/patHistory/{id}")
-    PatientHistory getPatientHistoryById(@PathVariable(name = "id") String id);
+    PatientHistoryDTO getPatientHistoryById(@PathVariable(name = "id") String id);
+
+    @PutMapping("/patHistory/update/{id}")
+    PatientHistoryDTO updatePatientHistory(@PathVariable("id") String id,@Valid @RequestBody PatientHistoryDTO patientHistoryDTO);
 
 
 }

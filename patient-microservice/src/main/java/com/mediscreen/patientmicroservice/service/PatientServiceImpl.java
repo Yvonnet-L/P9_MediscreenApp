@@ -1,8 +1,8 @@
 package com.mediscreen.patientmicroservice.service;
 
 import com.mediscreen.patientmicroservice.dto.PatientDTO;
-import com.mediscreen.patientmicroservice.exception.DataAlreadyExistException;
-import com.mediscreen.patientmicroservice.exception.DataNotFoundException;
+import com.mediscreen.patientmicroservice.web.exception.DataAlreadyExistException;
+import com.mediscreen.patientmicroservice.web.exception.DataNotFoundException;
 import com.mediscreen.patientmicroservice.model.Patient;
 import com.mediscreen.patientmicroservice.repository.PatientRepository;
 import com.mediscreen.patientmicroservice.tool.DtoBuilder;
