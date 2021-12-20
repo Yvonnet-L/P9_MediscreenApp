@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
+
+/**
+ * Data Transfer Object of the PatientHistory class
+ */
 @Getter
 @Setter
 @AllArgsConstructor

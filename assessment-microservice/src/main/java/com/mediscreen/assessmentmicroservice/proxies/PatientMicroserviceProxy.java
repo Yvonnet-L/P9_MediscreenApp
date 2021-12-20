@@ -25,4 +25,14 @@ public interface PatientMicroserviceProxy {
      */
     @GetMapping(value="/patient/{id}")
     PatientDTO getPatientById(@PathVariable(name = "id") Integer id);
+
+
+    /** ---------------------------------------------------------------------------------------------
+     *  Connection to the uri which returns the list of patients found whose last name begins with
+     *  the transmitted variable, if the variable is empty returns all patients
+     * @param familyName
+     * @return List<Patient>
+     */
+    @GetMapping(value="/patients/family/{familyName}")
+    List<PatientDTO> getPatientsStartingWith(@PathVariable(name = "familyName") String familyName);
 }

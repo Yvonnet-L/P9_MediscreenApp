@@ -3,15 +3,16 @@ package com.mediscreen.assessmentmicroservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Data Transfer Object of the Patient class with the input constraints,
- * used for validation of incoming data
+ * Data Transfer Object of the Patient class
  */
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PatientDTO {
 
     private Integer id;
