@@ -32,7 +32,7 @@ public class AssessmentController {
 
     @ApiOperation(value="Return home page")
     @GetMapping("/")
-    public List<String> getHome(){
+    public String getHome(){
         /**
         String notes = " une note d'une medicin sur les symptomes d'un covidd covid19 impatient sur patient";
         List<String> strings =  Arrays.asList("patient", "le", "sur", "covid", "covid19", "un", "une");
@@ -85,14 +85,14 @@ public class AssessmentController {
             */
         //assessmentService.rechercheString();
 
-        return  assessmentService.rechercheString();
+        return  "assessmentService.rechercheString()";
 
         //return "Welcone on Assessment-Microservice";
     }
     ///-----------------------------------------------------------------------------------------------------
     @ApiOperation(value="Result Assessment for a patient by his id")
     @GetMapping("/assess/id/{id}")
-    public String getAssessmentForPatientByIdPatient(@PathVariable(name="id") Integer patientId){
+    public AssessmentDTO getAssessmentForPatientByIdPatient(@PathVariable(name="id") Integer patientId){
         return assessmentService.diabeteAssessmentByIdPatient(patientId);
     }
 

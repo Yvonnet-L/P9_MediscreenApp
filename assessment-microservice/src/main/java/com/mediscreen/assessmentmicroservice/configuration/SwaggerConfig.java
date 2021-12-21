@@ -8,6 +8,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Class of Swagger Configuration
+ * Swagger is a very handy API documentation tool. It allows to generate “living” documentation,
+ * thus allowing the documentation to be always up to date.
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

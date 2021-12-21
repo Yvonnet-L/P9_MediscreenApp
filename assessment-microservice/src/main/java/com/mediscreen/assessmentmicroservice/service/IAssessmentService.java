@@ -8,7 +8,7 @@ public interface IAssessmentService {
 
     List<String> rechercheString();
 
-    String diabeteAssessmentByIdPatient(Integer patientId);
+    AssessmentDTO diabeteAssessmentByIdPatient(Integer patientId);
 
     List<AssessmentDTO> diabeteAssessmentByFamilyName(String familyName);
 }

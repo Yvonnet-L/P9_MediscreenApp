@@ -11,10 +11,10 @@ import java.util.List;
 public interface AssessmentMicroserviceProxy {
 
     @GetMapping("/assess/id/{id}")
-    String getAssessmentForPatientByIdPatient(@PathVariable(name="id") Integer patientId);
+    AssessmentDTO getAssessmentForPatientByIdPatient(@PathVariable(name="id") Integer patientId);
 
 
     @GetMapping("/assess/familyName/{familyName}")
-    public List<AssessmentDTO> getAssessmentForPatientWithFamilyName(@PathVariable(name="familyName") String familyName);
+    List<AssessmentDTO> getAssessmentForPatientWithFamilyName(@PathVariable(name="familyName") String familyName);
 
 }

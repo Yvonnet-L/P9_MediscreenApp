@@ -29,7 +29,7 @@
                 <a class="nav-link text-white"   href="/patient/list?stringSearch=" >Patients</a>
             </div>
             <div class="col-md-4">
-                <a class="nav-link text-white"  href="#">Reports</a>
+                <a class="nav-link text-white"  th:href="@{/patReport/{patientId}(patientId=${patientId})}">Report Assessment</a>
             </div>
         </div>
     </nav>
@@ -40,13 +40,8 @@
         <br>
         <div th:if="${message}" th:utext="${message}" class="text-info text-center"
              style=" font-weight: bold; font-size:1.2em"> </div>
-        <br>
-        <div th:if="${patientId}" th:utext="${patientId}"
-             style=" color:blue; font-weight: bold; font-size:1.4em"> </div>
-
+        <div th:if="${patientId}" th:utext="${patientId}" style=" color:blue; font-weight: bold; font-size:1.4em"></div>
 </div>
-
-
 </div>
 <br/><br/>
 <div class="container" style="...">
@@ -66,7 +61,7 @@
                 <td style="width: 8%" th:text="${patientNotes.patientId}"></td>
                 <td style="width: 10%" th:text="${patientNotes.date}"></td>
                 <td style="width: 55%" th:text="${patientNotes.notes}"></td>
-                <td style="width: 25%" class="text-center">
+                <td style="width: 30%" class="text-center">
                     <a th:href="@{/patHistory/update/{id}&{patientid}(id=${patientNotes.id},patientid=${patientNotes.patientId})}"
                                                                             class="btn btn-info btn-sm">Edit</a>
                     <a th:href="@{/patHistory/delete/{id}&{patientid}(id=${patientNotes.id},patientid=${patientNotes.patientId})}"

@@ -6,8 +6,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableFeignClients
 @EnableSwagger2
+@EnableFeignClients
+
 public class AssessmentMicroserviceApplication {
 
 	public static void main(String[] args) {

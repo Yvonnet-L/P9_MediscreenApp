@@ -4,9 +4,11 @@ import com.mediscreen.assessmentmicroservice.dto.AssessmentDTO;
 import com.mediscreen.assessmentmicroservice.dto.PatientDTO;
 import com.mediscreen.assessmentmicroservice.dto.PatientHistoryDTO;
 import com.mediscreen.assessmentmicroservice.enums.TriggerTerm;
+import com.mediscreen.assessmentmicroservice.exception.DataNotFoundException;
 import com.mediscreen.assessmentmicroservice.proxies.HistoryMicroserviceProxy;
 import com.mediscreen.assessmentmicroservice.proxies.PatientMicroserviceProxy;
 import com.mediscreen.assessmentmicroservice.tool.UtilityMethods;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,22 +60,30 @@ public class AssessmentServiceImpl implements IAssessmentService {
     }
 
     @Override
-    public String diabeteAssessmentByIdPatient(Integer patientId) {
-        PatientDTO patientDTO = patientMicroserviceProxy.getPatientById(patientId);
-        List<PatientHistoryDTO> patientHistoryDTOS = historyMicroserviceProxy.getPatientHistoryBypatientId(patientId);
-        // Concatenation de toutes les notes du patient en une seule string
-        String allNotesOfPatient = "";
-        for (PatientHistoryDTO ph : patientHistoryDTOS) {
-            allNotesOfPatient = allNotesOfPatient + " " + ph.getNotes();
-        }
-        int nbTriggerTermsFind = calculNbTriggerTerms(allNotesOfPatient);
-        int age = utilityMethods.ageCalculator(LocalDate.parse(patientDTO.getDateOfBirth()));
-        String sexe = patientDTO.getSex();
+    public AssessmentDTO diabeteAssessmentByIdPatient(Integer patientId) {
+        AssessmentDTO assessmentDTO = new AssessmentDTO();
+        try {
+            PatientDTO patientDTO = patientMicroserviceProxy.getPatientById(patientId);
+            List<PatientHistoryDTO> patientHistoryDTOS = historyMicroserviceProxy.getPatientHistoryBypatientId(patientId);
+            // Concatenation de toutes les notes du patient en une seule string
+            String allNotesOfPatient = "";
+            for (PatientHistoryDTO ph : patientHistoryDTOS) {
+                allNotesOfPatient = allNotesOfPatient + " " + ph.getNotes();
+            }
+            int nbTriggerTermsFind = calculNbTriggerTerms(allNotesOfPatient);
+            int age = utilityMethods.ageCalculator(LocalDate.parse(patientDTO.getDateOfBirth()));
+            String sexe = patientDTO.getSex();
 
-        String riskLevel = riskLevelForDiabetes(age, nbTriggerTermsFind, patientDTO.getSex());
-        String resString = "Patient: " + patientDTO.getGivenName() + " " + patientDTO.getFamilyName() + " (age " + age + ")" + " diabetes assessment is: " + riskLevel;
-        System.out.println(resString);
-        return resString;
+            String riskLevel = riskLevelForDiabetes(age, nbTriggerTermsFind, patientDTO.getSex());
+            String resString = "Patient: " + patientDTO.getGivenName() + " " + patientDTO.getFamilyName() + " (age " + age + ")" + " diabetes assessment is: " + riskLevel;
+            System.out.println(resString);
+            assessmentDTO = new AssessmentDTO(patientDTO, age, riskLevel);
+            return assessmentDTO;
+        }catch(FeignException e){
+            throw  new DataNotFoundException("Patient with this id is unknown");
+        }
+
+        //return resString;
     }
 
     @Override
@@ -103,7 +113,7 @@ public class AssessmentServiceImpl implements IAssessmentService {
 
     public String riskLevelForDiabetes (Integer age, Integer nbTriggers, String sexe){
         String riskLevel = "None";
-        // Early onset : 3 cas ( 2, >30 ans et 1 >30 ans )
+        // Early onset : 3 cas ( 2, <30 ans et 1 >30 ans )
         // In Danger   : 3 cas (  2, >30 ans et 1 >30 ans )
         // Borderline  : 1 cas ( > 30 )
         if ( age < 30 && sexe.equals("H") && nbTriggers>=5 || age < 30 && sexe.equals("f") && nbTriggers>=7
