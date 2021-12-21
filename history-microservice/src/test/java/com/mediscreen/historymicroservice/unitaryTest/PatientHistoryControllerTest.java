@@ -70,10 +70,21 @@ public class PatientHistoryControllerTest {
                          .andExpect(status().isOk());
     }
 
+    ///patHistories/{patientId}
+
     // -------- Get --- getPatientHistoryBypatientId -------------------------------------------------------
     @Test
+    @DisplayName(" getPatientHistoryBypatientIdOK Test response 200")
+    public void  getPatientHistoryBypatientIdOKTest() throws Exception {
+        Mockito.when(patientHistoryServiceImp.findAllByPatientId(any(Integer.class))).thenReturn(Arrays.asList(phDTO1,phDTO2));
+        mockMvc.perform(get("/patHistories/1"))
+                .andExpect(status().isOk());
+    }
+
+    // -------- Get --- getPatientHistoryById -------------------------------------------------------
+    @Test
     @DisplayName("getPatientHistoryBypatientIdOK Test response 200")
-    public void getPatientHistoryBypatientIdOKTest() throws Exception {
+    public void getPatientHistoryByIdTest() throws Exception {
         Mockito.when(patientHistoryServiceImp.findAllByPatientId(any(Integer.class))).thenReturn(Arrays.asList(phDTO1,phDTO2));
         mockMvc.perform(get("/patHistory/1"))
                 .andExpect(status().isOk());
@@ -85,7 +96,7 @@ public class PatientHistoryControllerTest {
        dataNotFoundException = new DataNotFoundException("message not found");
         Mockito.when(patientHistoryServiceImp.findAllByPatientId(any(Integer.class))).thenThrow(dataNotFoundException);
         mockMvc.perform(get("/patHistory/1"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isOk());
     }
 
     // -------- Post --- addPatientHistory -------------------------------------------------------

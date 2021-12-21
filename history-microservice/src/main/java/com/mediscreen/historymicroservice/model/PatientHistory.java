@@ -33,7 +33,7 @@ public class PatientHistory {
      */
     private LocalDate date;
     /**
-     * Annotation redigée par un medecin sur l'état du patient
+     * Annotation written by a doctor on the patient's condition
      */
     private String notes;
 

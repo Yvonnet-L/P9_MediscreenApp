@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface IAssessmentService {
 
-    List<String> rechercheString();
+    AssessmentDTO getDiabeteAssessmentByIdPatient(Integer patientId);
 
-    AssessmentDTO diabeteAssessmentByIdPatient(Integer patientId);
-
-    List<AssessmentDTO> diabeteAssessmentByFamilyName(String familyName);
+    List<AssessmentDTO> getDiabeteAssessmentByFamilyName(String familyName);
 }
