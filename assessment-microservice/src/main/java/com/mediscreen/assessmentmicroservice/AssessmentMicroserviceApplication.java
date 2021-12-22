@@ -8,7 +8,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @EnableFeignClients
-
 public class AssessmentMicroserviceApplication {
 
 	public static void main(String[] args) {

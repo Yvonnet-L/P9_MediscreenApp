@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(description = "patient management ")
+@Api(description = "Assessment management ")
 @RestController
 public class AssessmentController {
 
