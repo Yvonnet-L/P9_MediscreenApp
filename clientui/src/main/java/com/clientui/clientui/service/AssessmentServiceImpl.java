@@ -25,7 +25,6 @@ public class AssessmentServiceImpl implements IAssessmentService{
     public AssessmentDTO getAssessPatientById(Integer patientId) {
         AssessmentDTO assessmentDTO = new AssessmentDTO();
         assessmentDTO = assessmentMicroserviceProxy.getAssessmentForPatientByIdPatient(patientId);
-        //System.out.println(assessmentDTO.toString());
         return assessmentDTO;
     }
 }

@@ -2,7 +2,6 @@ package com.clientui.clientui.controller;
 
 
 import com.clientui.clientui.dto.AssessmentDTO;
-import com.clientui.clientui.proxies.AssessmentMicroserviceProxy;
 import com.clientui.clientui.service.IAssessmentService;
 import feign.Param;
 import org.apache.logging.log4j.LogManager;
@@ -22,9 +21,6 @@ public class AssessmentController {
 
     @Autowired
     IAssessmentService assessmentService;
-
-    @Autowired
-    AssessmentMicroserviceProxy assessmentMicroserviceProxy;
 
     private static Logger logger = LogManager.getLogger(PatientController.class);
 
@@ -52,9 +48,7 @@ public class AssessmentController {
                                        @RequestParam(name="message", defaultValue = "") String message){
         logger.info(" ----> Launch /patReport/{id} with id: " + patientId);
         AssessmentDTO assessmentDTO = new AssessmentDTO();
-        //if(!patientId.equals(null)) {
-            assessmentDTO = assessmentService.getAssessPatientById(patientId);
-        //}
+        assessmentDTO = assessmentService.getAssessPatientById(patientId);
         List<AssessmentDTO> assessmentDTOS = new ArrayList<>();
         assessmentDTOS.add(assessmentDTO);
         model.addAttribute("message", message);

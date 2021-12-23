@@ -65,9 +65,10 @@ public class HistoryController {
      */
     @GetMapping("/patHistory/add/{IdPatient}")
     public String getAddPatientNote(@PathVariable("IdPatient") Integer patientId, Model model){
-        PatientHistoryDTO patientHistoryDTO = new PatientHistoryDTO(patientId, LocalDate.now(),"");
+        PatientHistoryDTO patientHistoryDTO = new PatientHistoryDTO();
         model.addAttribute("patientId", patientId);
         patientHistoryDTO.setPatientId(patientId);
+        patientHistoryDTO.setDate( LocalDate.now().toString());
         model.addAttribute("msgAlertDate", "");
         model.addAttribute("patientHistoryDTO", patientHistoryDTO);
         return "patHistory/add";
@@ -157,7 +158,7 @@ public class HistoryController {
      * @return
      */
     @GetMapping("/patHistory/delete/{id}&{patientid}")
-    public String deletePatient(@PathVariable("id") String id, @PathVariable("patientid") Integer patientId){
+    public String deletePatientHistory(@PathVariable("id") String id, @PathVariable("patientid") Integer patientId){
         logger.info(" ----> Launch /pathistory/delete/id - note id: " + id + " - - " + patientId);
         message = historyService.deletePatientHistory(id);
         return "redirect:/patHistories/" + patientId+"?message="+ message;
