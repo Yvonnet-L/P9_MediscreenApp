@@ -1,7 +1,6 @@
-package com.clientui.clientui;
+package com.clientui.clientui.controller;
 
 
-import com.clientui.clientui.controller.HistoryController;
 import com.clientui.clientui.dto.PatientDTO;
 import com.clientui.clientui.dto.PatientHistoryDTO;
 import com.clientui.clientui.service.HistoryServiceImpl;
@@ -59,8 +58,7 @@ public class HistoryControllerTest {
     @Test
     @DisplayName("getAllPatientHistories Test response 200")
     public void getAllPatientHistoriesTest() throws Exception {
-        PatientDTO patientDTO = new PatientDTO(2, "TestBorderline", "Test",
-                "1945-06-24", "F", "2 High St", "200-333-4444");
+
 
         Mockito.when(historyService.findAllPatientHistories()).thenReturn(patientHistoryDTOList);
 

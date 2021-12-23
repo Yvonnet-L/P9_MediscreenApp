@@ -1,7 +1,6 @@
 package com.clientui.clientui.controller;
 
 import com.clientui.clientui.dto.PatientDTO;
-import com.clientui.clientui.proxies.PatientMicroserviceProxy;
 import com.clientui.clientui.service.IPatientService;
 import feign.Param;
 import org.apache.logging.log4j.LogManager;
@@ -31,18 +30,10 @@ public class PatientController {
     @Autowired
     IPatientService patientService;
 
-    @Autowired
-    PatientMicroserviceProxy patientMicroserviceProxy;
-
 
     private static Logger logger = LogManager.getLogger(PatientController.class);
 
     private String message;
-
-    @Autowired
-    public PatientController(final PatientMicroserviceProxy patientMicroserviceProxy){
-        this.patientMicroserviceProxy = patientMicroserviceProxy;
-    }
 
     /**
      *  Home Page of Mediscreen
@@ -87,7 +78,6 @@ public class PatientController {
     public String deletePatient(@PathVariable("id") Integer id){
         logger.info(" ----> Launch /patient/delete/id - deletePatient()");
            message = patientService.deletePatientById(id);
-             message = "Patient with id "+id+" deleted ! ";
         return   "redirect:/patient/list?stringSearch=&message="+ message;
     }
     /**
@@ -164,7 +154,7 @@ public class PatientController {
      */
     //---------Post-----/patient/validate---------------------------------------------------------------------------------
     @PostMapping("/patient/validate")
-    public String validate(@Valid PatientDTO patientDTO, BindingResult result, Model model,
+    public String validatePatient(@Valid PatientDTO patientDTO, BindingResult result, Model model,
                            @RequestParam(name="message", defaultValue = "") String message) {
         logger.info( "--> Launch /bidList/validate");
         if (Date.valueOf(patientDTO.getDateOfBirth()).after(Date.valueOf(LocalDate.now().toString()))){

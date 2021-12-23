@@ -1,7 +1,6 @@
-package com.clientui.clientui;
+package com.clientui.clientui.controller;
 
 
-import com.clientui.clientui.controller.AssessmentController;
 import com.clientui.clientui.dto.AssessmentDTO;
 import com.clientui.clientui.dto.PatientDTO;
 import com.clientui.clientui.service.AssessmentServiceImpl;
