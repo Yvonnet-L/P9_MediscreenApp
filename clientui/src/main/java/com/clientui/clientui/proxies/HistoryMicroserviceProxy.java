@@ -12,7 +12,8 @@ import java.util.List;
  * Feign is an http client which greatly facilitates the calling of APIs.
  */
 
-@FeignClient(name="history-microservice", url="localhost:8082")
+//@FeignClient(name="history-microservice", url="localhost:8082")  // ligne non Docker
+@FeignClient(name="patient-microservice", url="history-ms:8082") // ligne Docker
 public interface HistoryMicroserviceProxy {
 
 

@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name="history-microservice", url="localhost:8082")
+//@FeignClient(name="history-microservice", url="localhost:8082") // ligne non Docker
+@FeignClient(name="patient-microservice", url="history-ms:8082") // ligne Docker
 public interface HistoryMicroserviceProxy {
 
     /**

@@ -12,7 +12,8 @@ import java.util.List;
  * Allows the connection between the application and the patient-microservice
  * Feign is an http client which greatly facilitates the calling of APIs.
  */
-@FeignClient(name="patient-microservice", url="localhost:8081")
+//@FeignClient(name="patient-microservice", url="localhost:8081") // ligne non docker
+@FeignClient(name="patient-microservice", url="patient-ms:8081") // ligne Docker
 public interface PatientMicroserviceProxy {
 
     /** ---------------------------------------------------------------------------------------------

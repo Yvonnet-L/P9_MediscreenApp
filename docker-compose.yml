@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_USER: userMediscreen
+      MYSQL_PASSWORD: mediscreenUserPassword
+      MYSQL_DATABASE: mediscreendb
+    ports:
+      - 3307:3306
+
+
+  patient:
+    image: patient-ms
+    container_name: patient
+    ports:
+      - 8081-8081
+    depends_on:
+      - mysql
+    restart: always
+

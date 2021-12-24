@@ -7,7 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name="Assessment-microservice", url="localhost:8083")
+/**
+ * Allows the connection between the application and the assessement-microservice
+ * Feign is an http client which greatly facilitates the calling of APIs.
+ */
+
+//@FeignClient(name="Assessment-microservice", url="localhost:8083") // ligne non Docker
+@FeignClient(name="patient-microservice", url="assessment-ms:8083") // ligne Docker
 public interface AssessmentMicroserviceProxy {
 
     @GetMapping("/assess/id/{id}")
