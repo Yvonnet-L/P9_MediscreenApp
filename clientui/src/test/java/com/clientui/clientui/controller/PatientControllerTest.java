@@ -83,7 +83,6 @@ public class PatientControllerTest {
     public void getPatientsWithStringOfResearchTest() throws Exception {
 
         Mockito.when(patientService.getPatientStartingFamilyNameWith(any(String.class))).thenReturn(patientDTOList);
-       // Mockito.when(patientService.getAllPatients()).thenReturn(patientDTOList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/patient/list?stringSearch=test"))
                 .andExpect(model().attributeExists("message"))
