@@ -2,18 +2,18 @@ package com.clientui.clientui.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PatientHistoryDTO {
-
 
     private String id;
 
@@ -28,10 +28,9 @@ public class PatientHistoryDTO {
     private String notes;
 
 
-
-    public PatientHistoryDTO() {
-    }
-
-    public PatientHistoryDTO(Integer patientId, LocalDate now, String s) {
+    public PatientHistoryDTO(Integer patientId, String date, String notes) {
+        this.patientId = patientId;
+        this.date = date;
+        this.notes = notes;
     }
 }

@@ -12,7 +12,7 @@
 	<artifactId>patient-microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>patient-microservice</name>
-	<description>REST patient management application</description>
+	<description>REST patients management application</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -45,7 +45,7 @@
 			<artifactId>log4j-api</artifactId>
 			<!-- Pensez à passer à la version 2.15.0 pour éviter les failles de sécurité
 			     Nous restons ici en 2.6.1 pour bénéficier pour le moment de la mise en forme
-			 	 de log avec les liens pour remonter dans le code plus aisement   -->
+			 	 de log avec les liens pour remonter dans le code plus aisement  -->
 			<version>2.6.1</version>
 		</dependency>
 		<dependency>
@@ -58,7 +58,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -87,15 +86,11 @@
 			<artifactId>jacoco-maven-plugin</artifactId>
 			<version>0.8.5</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>

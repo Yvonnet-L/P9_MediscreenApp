@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>ClientUI Report List</title>
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container" >
+    <div class="row">
+        <div class="col-9 text-left" >
+            <img src="http://localhost:8080/images/logo.jpg" />
+        </div>
+    </div>
+</div>
+
+<div class="container" >
+    <nav class="navbar navbar-dark bg-cian text-white" style="background-color: #2e99b6;">
+        <div class="row">
+            <div class="col-md-4 align-right">
+                <a class="nav-link text-white"  href="/">Home</a>
+            </div>
+            <div class="col-md-4">
+                <a class="nav-link text-white"  href="/patHistories">Notes</a>
+            </div>
+            <div class="col-md-4">
+                <a class="nav-link text-white"  href="/patient/list?stringSearch=">Patients</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container" style="...">
+
+    <div class="col-12 text-center"><h2>Report Diabete Risk</h2></div>
+
+
+    <div class="container" style="..." align="center">
+        <h4>Research by Family Name</h4>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <form th:action="@{/report/list}" class="form-inline" align="center">
+                <input class="form-control mr-sm-2" type="text" name="stringSearch" id="stringSearch" size="50" th:value="${stringSearch}">
+
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+        <br>
+        <div th:if="${message}" th:utext="${message}" class="text-info"
+             style=" font-weight: bold; font-size:1.2em"> </div>
+
+    </div>
+
+</div>
+<br/><br/>
+<div class="container" style="...">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>age</th>
+                <th>Sex</th>
+                <th>Diabete Risk</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="assessmentDTO : ${assessmentDTOS}">
+                <td th:text="${assessmentDTO.patientDTO.familyName}"></td>
+                <td th:text="${assessmentDTO.patientDTO.givenName}"></td>
+                <td th:text="${assessmentDTO.age}"></td>
+                <td th:text="${assessmentDTO.patientDTO.sex}"></td>
+                <td th:text="${assessmentDTO.diabetesRiskAssessment}"></td>
+                <td style="width: 25%" class="text-center">
+                    <a th:href="@{/patient/update/{id}(id=${assessmentDTO.patientDTO.id})}" class="btn btn-info btn-sm">patient</a>
+                    <a th:href="@{/patHistories/{id}(id=${assessmentDTO.patientDTO.id})}" class="btn btn-primary btn-sm">Notes</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

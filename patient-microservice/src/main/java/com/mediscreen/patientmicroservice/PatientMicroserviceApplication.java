@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
+/**
+ *  Launch PatientMicroservice Application
+ */
 @SpringBootApplication
 @EnableSwagger2
 public class PatientMicroserviceApplication {

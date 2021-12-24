@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ *  Class containing the processing methods of the patientHistory processing business logic
+ */
 @Service
 public class PatientHistoryServiceImp implements IPatientHistoryService {
 

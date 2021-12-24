@@ -48,7 +48,7 @@
             <form action="#" th:action="@{/patient/validate}" th:object="${patientDTO}" method="post" class="form-horizontal" style="width: 100%">
                 <!-- Family Name  -->
                 <div class="form-group">
-                    <label for="familyName" class="col-sm-2 control-label">Family Name</label>
+                    <label for="familyName" class="col-sm-2 control-label">Last Name</label>
                     <div class="col-md-10">
                         <input class="form-control col-5" type="text" th:field="*{familyName}" id="familyName" placeholder="FamillyName">
                         <p class="text-danger" th:if="${#fields.hasErrors('familyName')}" th:errors="*{familyName}"></p>
@@ -56,7 +56,7 @@
                 </div>
                 <!-- Given Name  -->
                 <div class="form-group">
-                    <label for="givenName" class="col-sm-2 control-label">Given Name</label>
+                    <label for="givenName" class="col-sm-2 control-label">First Name</label>
                     <div class="col-md-10">
                         <input class="form-control col-5" type="text" th:field="*{givenName}" id="givenName" placeholder="Type">
                         <p class="text-danger" th:if="${#fields.hasErrors('givenName')}" th:errors="*{givenName}"></p>
@@ -86,7 +86,7 @@
                 </div>
                 <!-- address  -->
                 <div class="form-group">
-                    <label for="address" class="col-sm-2 control-label">Address</label>
+                    <label for="address" class="col-sm-2 control-label">Home Address</label>
                     <div class="col-md-10">
                         <input class="form-control col-5" type="text" th:field="*{address}" id="address" placeholder="21 Jump Street">
                         <p class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
@@ -94,7 +94,7 @@
                 </div>
                 <!-- phone  -->
                 <div class="form-group">
-                    <label for="phone" class="col-sm-2 control-label">Phone</label>
+                    <label for="phone" class="col-sm-2 control-label">Phone number</label>
                     <div class="col-md-10">
                         <input class="form-control col-4" type="text" th:field="*{phone}" id="phone" placeholder="100-222-3333" >
                         <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Class containing the processing methods of the patient processing business logic
  */
 @Service
 public class PatientServiceImpl implements IPatientService{

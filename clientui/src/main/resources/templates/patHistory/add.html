@@ -38,6 +38,11 @@
 
     <div class="row">
         <div class="form-group">
+            <div align="center" class="text-info" style=" font-weight: bold; font-size:1em">
+                <p class="text-alert" >Liste des mots clés à utiliser pour l'élaboration de l'évaluation des risques du diabète</p>
+                <p class="text-warning">  "Hémoglobine A1C", "Microalbumine", "Taille", "Poids", "Fumeur" </p>
+                <p class="text-warning"> "Anormal", "Cholestérol", "Vertige", "Rechute", "Réaction", "Anticorp"</p>
+            </div>
             <h2>Add New Note</h2>
             <br>
             <div th:if="${patientId}" th:utext="${patientId}"
@@ -54,7 +59,6 @@
                    <div class="col-md-10">
                        <SCRIPT LANGUAGE="JavaScript">
                         var today =new Date().toISOString().split("T")[0];
-                            document.write(today);
                             document.getElementById("date").setAttribute("max", today);
                             document.getElementById("date").setAttribute("placeholder", today)
                         </SCRIPT>
