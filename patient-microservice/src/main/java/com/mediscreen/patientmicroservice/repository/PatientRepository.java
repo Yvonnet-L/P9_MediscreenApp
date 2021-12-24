@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Interface allowing interaction with the patient table of the sql database thanks to JPA
+ */
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 

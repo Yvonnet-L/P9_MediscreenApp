@@ -23,7 +23,8 @@ public class PatientServiceImpl implements IPatientService {
 
     private static Logger logger = LogManager.getLogger(PatientServiceImpl.class);
 
-    /** -------------------------------------------------------------------------------------------------------------
+    /**
+     * Method of liason with PatientMicroserviceProxy on getAllPatients
      *
      * @return List<PatientDTO>
      */
@@ -34,7 +35,8 @@ public class PatientServiceImpl implements IPatientService {
             return patientDTOS;
     }
 
-    /** -------------------------------------------------------------------------------------------------------------
+    /**
+     * Method of liason with PatientMicroserviceProxy on getPatientStartingFamilyNameWith
      *
      * @param stringSearch
      * @return  patientDTOS List<PatientDTO>
@@ -46,9 +48,10 @@ public class PatientServiceImpl implements IPatientService {
         return patientDTOS;
     }
 
-    /** -------------------------------------------------------------------------------------------------------------
+    /**
+     * Method of liason with PatientMicroserviceProxy on getById
      *
-     * @param id
+     * @param id id of patient
      * @return PatientDTO
      */
     @Override
@@ -62,9 +65,11 @@ public class PatientServiceImpl implements IPatientService {
         }
     }
 
-    /** -------------------------------------------------------------------------------------------------------------
+    /**
+     * Method of liason with PatientMicroserviceProxy on deletePatientById
      *
-     * @param id
+     * @param id id of patient
+     * @return String result
      */
     @Override
     public String deletePatientById(Integer id) {
@@ -78,7 +83,8 @@ public class PatientServiceImpl implements IPatientService {
         }
     }
 
-    /** -------------------------------------------------------------------------------------------------------------
+    /** -
+     * Method of liason with PatientMicroserviceProxy on addPatient
      *
      * @param patientDTO
      * @return String message résultat opération
@@ -94,7 +100,8 @@ public class PatientServiceImpl implements IPatientService {
         }
     }
 
-    /** -------------------------------------------------------------------------------------------------------------
+    /**
+     *  Method of liason with PatientMicroserviceProxy on updatePatient
      *
      * @param patientDTO
      * @param id

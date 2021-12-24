@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * PatientHistory management by creating REST endpoints
+ */
 @Api(description = "Hystory history Notes management ")
 @RestController
 public class PatientHistoryController {

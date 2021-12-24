@@ -1,5 +1,9 @@
 package com.mediscreen.assessmentmicroservice.proxies;
 
+/**
+ * Class allowing connection with the HistoryMicroservice
+ * Feign is an http client which greatly facilitates the calling of APIs.
+ */
 
 import com.mediscreen.assessmentmicroservice.dto.PatientHistoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;

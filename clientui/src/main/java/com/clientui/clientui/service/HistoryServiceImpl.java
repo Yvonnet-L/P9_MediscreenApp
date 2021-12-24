@@ -25,11 +25,13 @@ public class HistoryServiceImpl implements IHistoryService {
 
 
     /**
+     * Method of laison with historyMicroserviceProxy on getAllPatientHistories
      *
      * @returnList<PatientHistoryDTO>
      */
     @Override
     public List<PatientHistoryDTO> findAllPatientHistories() {
+        logger.info(" ----> Launch findAllPatientHistories()");
         List<PatientHistoryDTO> patientHistoryDTOS = historyMicroserviceProxy.getAllPatientHistories();
         return patientHistoryDTOS;
     }
@@ -47,6 +49,11 @@ public class HistoryServiceImpl implements IHistoryService {
         return patientHistoryDTOS;
     }
 
+    /**
+     * Method of liason with historyMicroserviceProxy on findPatientHistoryById
+     * @param id
+     * @return
+     */
     @Override
     public PatientHistoryDTO findPatientHistoryById(String id) {
         logger.info(" ----> Launch findPatientHistoryById");
@@ -57,6 +64,11 @@ public class HistoryServiceImpl implements IHistoryService {
         }
     }
 
+    /**
+     * Method of liason with historyMicroserviceProxy on addPatientHistory
+     * @param patientHistoryDTO
+     * @return String result
+     */
     @Override
     public String addPatientHistory(PatientHistoryDTO patientHistoryDTO) {
         logger.info(" ----> Launch addPatientHistory");
@@ -68,6 +80,11 @@ public class HistoryServiceImpl implements IHistoryService {
         }
     }
 
+    /**
+     * Method of liason with historyMicroserviceProxy on deletePatientHistory
+     * @param id
+     * @return String result
+     */
     @Override
     public String deletePatientHistory(String id) {
         logger.info(" ----> Launch deletePatientHistory");
@@ -81,6 +98,12 @@ public class HistoryServiceImpl implements IHistoryService {
         }
     }
 
+    /**
+     * Method of liason with historyMicroserviceProxy on updatePatientHistory
+     * @param id
+     * @param patientHistoryDTO
+     * @return String result
+     */
     @Override
     public String updatePatientHistory(String id, PatientHistoryDTO patientHistoryDTO) {
         logger.info(" ----> Launch updatePatientHistory");

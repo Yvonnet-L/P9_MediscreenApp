@@ -1,10 +1,11 @@
 package com.mediscreen.assessmentmicroservice.enums;
 
+/**
+ * List of all abbreviations useful in assessing the patient's risk of diabetes.
+ * list:"Hémoglobine A1C, Microalbumine, Taille, Poids, Fumeur,
+ *      Anormal, Cholestérol, Vertige, Rechute, Réaction, Anticorp";
+ */
 public enum TriggerTerm {
-    /**
-     "Hémoglobine A1C", "Microalbumine", "Taille", "Poids", "Fumeur",
-     "Anormal", "Cholestérol", "Vertige", "Rechute", "Réaction", "Anticorp");
-     */
 
     HEMOGLOBINE_A1C("Hémoglobine A1C"),
     MICROALBUMINE("Microalbumine"),

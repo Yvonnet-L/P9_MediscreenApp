@@ -8,6 +8,7 @@ import lombok.Setter;
 
 /**
  * Data Transfer Object of the Patient class
+ *
  */
 @Getter
 @Setter

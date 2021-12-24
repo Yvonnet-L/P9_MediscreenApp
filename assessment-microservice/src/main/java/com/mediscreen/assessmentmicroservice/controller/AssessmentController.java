@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Assessment management by creating REST endpoints
+ */
 @Api(description = "Assessment management ")
 @RestController
 public class AssessmentController {

@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+/**
+ *  Launch AssessmentMicroservice Application
+ */
 @SpringBootApplication
 @EnableSwagger2
 @EnableFeignClients

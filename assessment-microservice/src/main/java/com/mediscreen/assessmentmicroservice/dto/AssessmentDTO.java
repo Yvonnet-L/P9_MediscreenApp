@@ -28,7 +28,6 @@ public class AssessmentDTO {
      */
     private String diabetesRiskAssessment;
 
-    //resString = "Patient: " + patientDTO.getGivenName() + " " + patientDTO.getFamilyName() + " (age " + age + ")" + " diabetes assessment is: " + diabetesRiskAssessment;
     @Override
     public String toString() {
         return "AssessmentDTO{" +
