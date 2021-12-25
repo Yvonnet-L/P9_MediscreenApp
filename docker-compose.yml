@@ -11,6 +11,7 @@ services:
       MYSQL_DATABASE: mediscreendb
     ports:
       - 3307:3306
+    restart: always
 
   mongodb:
     image: mongo
@@ -26,7 +27,7 @@ services:
       - 8082:8082
     depends_on:
       - mongodb
-
+    restart: always
 
   patient-ms:
     image: patient-ms
@@ -35,19 +36,9 @@ services:
       - 8081:8081
     depends_on:
       - mysql
-
-  clientui:
-    image: clientui
-    container_name: clientui
-    ports:
-      - 8080:8080
-    depends_on:
-      - patient-ms
-      - history-ms
-      - assessment
     restart: always
 
-  assessment:
+  assessment-ms:
     image: assessment-ms
     container_name: assessment
     ports:
@@ -59,3 +50,14 @@ services:
     restart: always
 
 
+  clientui:
+    image: clientui
+    container_name: clientui
+    ports:
+      - 8080:8080
+    depends_on:
+      - patient-ms
+      - history-ms
+      - assessment-ms
+    build: .
+    restart: always
