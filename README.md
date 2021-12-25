@@ -73,7 +73,7 @@ To run the application, you will first have to go to each root directory of the 
 commands with Git Bash for example:
 * Build each micro-services, with Maven:
   ``` 
-  * $ maven build
+  * $ mvn clean package -DskipTests
   ``` 
 * Then you will need to build each microservices docker image using the command
   ``` 
