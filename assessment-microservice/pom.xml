@@ -43,7 +43,7 @@
 			<!-- Pensez à passer à la version 2.15.0 pour éviter les failles de sécurité
              Nous restons ici en 2.6.1 pour bénéficier pour le moment de la mise en forme
               de log avec les liens pour remonter dans le code plus aisement   -->
-			<version>2.6.1</version>
+			<version>2.15.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

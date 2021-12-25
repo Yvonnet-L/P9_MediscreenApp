@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 //@FeignClient(name="Assessment-microservice", url="localhost:8083") // ligne non Docker
-@FeignClient(name="patient-microservice", url="assessment-ms:8083") // ligne Docker
+@FeignClient(name="Assessment-microservice", url="assessment-ms:8083") // ligne Docker
 public interface AssessmentMicroserviceProxy {
 
     @GetMapping("/assess/id/{id}")
